@@ -1,7 +1,7 @@
 import { StoredFile } from "core/models/stored-file.model";
-import { FileGateway } from "./file.gateway";
+import { FileStorageGateway } from "./file-storage.gateway";
 
-export class InMemoryFileGateway implements FileGateway {
+export class InMemoryFileGateway implements FileStorageGateway {
     constructor(private files: StoredFile[]) {}
 
     getLast(params: {count: number, page: number}): Promise<StoredFile[]> {

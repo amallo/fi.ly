@@ -6,10 +6,9 @@ import { FileSharingIdGenerator } from "@/core/gateways/file-sharing-id.generato
 import { FileSharingLinkGenerator } from "@/core/gateways/file-sharing-link.generator";
 import { FileSharingGateway } from "@/core/gateways/file-sharing.gateway";
 import { FileUploadHandler } from "@/core/gateways/file-upload.handler";
-import { FileGateway } from "@/core/gateways/file.gateway";
+import { FileStorageGateway } from "@/core/gateways/file-storage.gateway";
 import { FolderGateway } from "@/core/gateways/folder.gateway";
 import { InMemoryFileSharingGateway } from "@/core/gateways/in-memory-file-sharing.gateway";
-import { InMemoryFileGateway } from "@/core/gateways/in-memory-file.gateway";
 import { InMemoryFolderGateway } from "@/core/gateways/in-memory-folder.gateway";
 import { LoggedInAuthGateway } from "@/core/gateways/logged-in-auth.gateway";
 import { NanoidFileSharingIdGenerator } from "@/core/gateways/nanoid-file-sharing-id.generator";
@@ -19,11 +18,13 @@ import { RealNowGateway } from "@/core/gateways/real-now.gateway";
 import { AuthenticatedUser } from "@/core/models/authenticated-user.model";
 import { StubFileSharingIdGenerator } from "./gateways/stub-file-sharing-id.generator";
 import { StubFileSharingLinkGenerator } from "./gateways/stub-file-sharing-link.generator";
-import { FakeFileGateway } from "./gateways/fake-file.gateway";
+import { FakeFileStorageGateway } from "./gateways/fake-file-storage.gateway";
 import { FakeNowGateway } from "./gateways/fake-now.gateway";
 import { FakeFolderGateway } from "./gateways/fake-folder.gateway";
 import { StubConfigGateway } from "./gateways/stub-config.gateway";
 import { FakeFileSharingGateway } from "./gateways/fake-file-sharing.gateway";
+import { LocalSupabaseFileStorageGateway } from "./gateways/local-supabase-file-storage.gateway";
+import { createBrowserClient } from "@supabase/ssr/dist/main/createBrowserClient";
 
 export type Dependencies = {
     nowGateway: NowGateway,
@@ -34,13 +35,16 @@ export type Dependencies = {
     fileSharingIdGenerator: FileSharingIdGenerator,
     fileUploadHandler: FileUploadHandler,
     folderGateway: FolderGateway,
-    fileGateway: FileGateway,
+    fileGateway: FileStorageGateway,
 }
 
 export const createDevDependencies = (): Dependencies => {
     return {
         folderGateway : new InMemoryFolderGateway([]),
-        fileGateway : new InMemoryFileGateway([]),
+        fileGateway : new LocalSupabaseFileStorageGateway(createBrowserClient(
+            process.env.NEXT_PUBLIC_SUPABASE_API_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        )),
         nowGateway : new RealNowGateway(),
         authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei")),
         fileSharingGateway : new InMemoryFileSharingGateway([]),
@@ -54,7 +58,7 @@ export const createDevDependencies = (): Dependencies => {
 export const createTestDependencies = (deps: Partial<Dependencies>): Dependencies => {
     return {
         folderGateway : new FakeFolderGateway(),
-        fileGateway : new FakeFileGateway([]),
+        fileGateway : new FakeFileStorageGateway([]),
         nowGateway : new FakeNowGateway(new Date("2025-01-21T00:00:00Z")),
         authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei")),
         fileSharingGateway : new FakeFileSharingGateway([]),

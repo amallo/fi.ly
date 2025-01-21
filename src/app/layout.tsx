@@ -1,4 +1,4 @@
-
+import 'dotenv/config'
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -50,7 +50,7 @@ const HomeLayout = ({children}: {children: React.ReactNode}) => {
         <aside className="w-64 bg-white border-r border-gray-200 min-h-screen">
           <nav className="mt-5 px-2">
             <Link
-              href="/home"
+              href="/videos/mine"
               className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-900 hover:bg-gray-50"
             >
               <Video className="mr-3 h-5 w-5 text-gray-500" />
