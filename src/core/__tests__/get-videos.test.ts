@@ -1,9 +1,9 @@
-import { createTestDependencies } from "core/dependencies";
-import { NotLoggedInError } from "core/gateways/auth.gateway";
-import { FakeAuthGateway } from "core/gateways/fake-auth.gateway";
-import { FakeFileGateway } from "core/gateways/fake-file.gateway";
-import { NotLoggedInAuthGateway } from "core/gateways/not-logged-in.gateway";
-import { createGetLastVideosFn } from "core/get-last-videos";
+import { createTestDependencies } from "@/core/dependencies";
+import { NotLoggedInError } from "@/core/gateways/auth.gateway";
+import { FakeAuthGateway } from "@/core/gateways/fake-auth.gateway";
+import { FakeFileGateway } from "@/core/gateways/fake-file.gateway";
+import { NotLoggedInAuthGateway } from "@/core/gateways/not-logged-in.gateway";
+import { createGetLastVideosFn } from "@/core/get-last-videos";
 import { describe, expect, test } from "vitest";
 
 describe('FEATURE: Jean-Fei gets its videos', () => {

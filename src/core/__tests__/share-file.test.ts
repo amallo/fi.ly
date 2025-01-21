@@ -6,8 +6,8 @@ import { FakeFileSharingGateway } from "../gateways/fake-file-sharing.gateway";
 import { FileSharing } from "../models/file-sharing.model";
 import { StubFileSharingLinkGenerator } from "../gateways/stub-file-sharing-link.generator";
 import { StubConfigGateway } from "../gateways/stub-config.gateway";
-import { StubFileSharingIdGenerator } from "core/gateways/stub-file-sharing-id.generator";
-import { createTestDependencies } from "core/dependencies";
+import { StubFileSharingIdGenerator } from "@/core/gateways/stub-file-sharing-id.generator";
+import { createTestDependencies } from "@/core/dependencies";
 
 describe('FEATURE: Jean-Fei shares a video', () => {
 

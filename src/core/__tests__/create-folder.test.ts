@@ -3,7 +3,7 @@ import { FakeNowGateway } from '../gateways/fake-now.gateway';
 import { FakeAuthGateway } from '../gateways/fake-auth.gateway';
 import { createAppendFolderFn } from '../append-folder';
 import { FakeFolderGateway } from '../gateways/fake-folder.gateway';
-import { createTestDependencies } from 'core/dependencies';
+import { createTestDependencies } from '@/core/dependencies';
 
 describe('FEATURE: Jean-Fei appends a folder', () => {
   

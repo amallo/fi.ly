@@ -5,7 +5,7 @@ import { FakeNowGateway } from "../gateways/fake-now.gateway"
 import { ChangeFileSharingPasswordArgs } from "../gateways/file-sharing.gateway"
 import { createChangePasswordFn } from "../change-password"
 import { FileSharing } from "../models/file-sharing.model"
-import { createTestDependencies } from "core/dependencies"
+import { createTestDependencies } from "@/core/dependencies"
 
 describe('change file sharing password', () => {
     test('successfully change password', async () => {

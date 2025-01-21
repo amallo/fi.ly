@@ -3,7 +3,7 @@ import { FakeUploadHandler } from '../gateways/fake-file-upload.handler';
 import { createUploadFileFn } from '../upload-file';
 import { FakeNowGateway } from '../gateways/fake-now.gateway';
 import { FakeAuthGateway } from '../gateways/fake-auth.gateway';
-import { createTestDependencies } from 'core/dependencies';
+import { createTestDependencies } from '@/core/dependencies';
 
 describe('FEATURE: Jean-Fei uploads a video', () => {
   test('successfully upload a video to the root folder', async () => {
