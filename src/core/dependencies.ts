@@ -53,7 +53,7 @@ export const createDevDependencies = (): Dependencies => {
         configGateway : new EnvConfigGateway(),
         fileSharingIdGenerator : new NanoidFileSharingIdGenerator(),
         shareLinkGenerator : new NanoidShareLinkGenerator(),
-        fileUploadHandler : new SupabaseFileUploadHandler(supabase),
+        fileUploadHandler : new SupabaseFileUploadHandler(supabase, {bucketName: process.env.NEXT_PUBLIC_SUPABASE_BUCKET_NAME!}),
     }
 }
 
