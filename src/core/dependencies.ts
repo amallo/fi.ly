@@ -23,8 +23,9 @@ import { FakeNowGateway } from "./gateways/fake-now.gateway";
 import { FakeFolderGateway } from "./gateways/fake-folder.gateway";
 import { StubConfigGateway } from "./gateways/stub-config.gateway";
 import { FakeFileSharingGateway } from "./gateways/fake-file-sharing.gateway";
-import { LocalSupabaseFileStorageGateway } from "./gateways/local-supabase-file-storage.gateway";
+import { SupabaseFileStorageGateway } from "./gateways/supabase-file-storage.gateway";
 import { createBrowserClient } from "@supabase/ssr/dist/main/createBrowserClient";
+import { SupabaseFileUploadHandler } from "./gateways/supabase-file-upload.handler";
 
 export type Dependencies = {
     nowGateway: NowGateway,
@@ -39,19 +40,20 @@ export type Dependencies = {
 }
 
 export const createDevDependencies = (): Dependencies => {
+    const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_API_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
     return {
         folderGateway : new InMemoryFolderGateway([]),
-        fileGateway : new LocalSupabaseFileStorageGateway(createBrowserClient(
-            process.env.NEXT_PUBLIC_SUPABASE_API_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-        )),
+        fileGateway : new SupabaseFileStorageGateway(supabase),
         nowGateway : new RealNowGateway(),
         authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei")),
         fileSharingGateway : new InMemoryFileSharingGateway([]),
         configGateway : new EnvConfigGateway(),
         fileSharingIdGenerator : new NanoidFileSharingIdGenerator(),
         shareLinkGenerator : new NanoidShareLinkGenerator(),
-        fileUploadHandler : new FakeUploadHandler(),
+        fileUploadHandler : new SupabaseFileUploadHandler(supabase),
     }
 }
 

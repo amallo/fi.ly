@@ -2,7 +2,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { StoredFile } from "../models/stored-file.model";
 import { FileStorageGateway } from "./file-storage.gateway";
 
-export class LocalSupabaseFileStorageGateway implements FileStorageGateway {
+export class SupabaseFileStorageGateway implements FileStorageGateway {
     constructor(private supabase: SupabaseClient) {}
 
     async getLast(params: {count: number, page: number}): Promise<StoredFile[]> {
