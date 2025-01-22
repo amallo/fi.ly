@@ -17,6 +17,6 @@ export class SupabaseFileStorageGateway implements FileStorageGateway {
         if (!data) {
             return []
         }
-        return Promise.resolve(data.map((file) => ({id: file.id, type: file.type, createdAt: new Date(file.created_at)})))
+        return Promise.resolve(data.map((file) => ({id: file.id, title: file.title, type: file.type, createdAt: new Date(file.created_at)})))
     }
 }

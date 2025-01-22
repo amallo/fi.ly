@@ -2,7 +2,6 @@
 
 import { useCases } from "@/context/usecase.provider"
 import { StoredFile } from "@/core/models/stored-file.model"
-import Link from "next/link"
 import { useState, useEffect, useCallback } from "react"
 import { ButtonAddVideoComponent } from "./button-add-video"
 
@@ -41,7 +40,7 @@ export const ListRecentVideosComponent = () => {
                   <div className="flex items-center space-x-4">
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-gray-900">
-                        {"Nouvelle vidéo trop super"}
+                        {video.title}
                       </p>
                       <p className="text-sm text-gray-500">
                         {video.createdAt.toISOString()}

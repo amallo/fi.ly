@@ -11,7 +11,7 @@ describe('FEATURE: Jean-Fei uploads a video', () => {
     const nowGateway = new FakeNowGateway(new Date("2025-01-01T00:00:00.000Z"))
     const authGateway = new FakeAuthGateway("jean-fei")
     const uploadFile = createUploadFileFn(createTestDependencies({fileUploadHandler: uploadHandler, nowGateway, authGateway}))
-    const result = await uploadFile({id: "video-id-0", type: "video", sourcePath: "/path/video.mp4", targetFolderId: "root-id"})
+    const result = await uploadFile({title: "awesome video", type: "video", sourcePath: "/path/video.mp4", targetFolderId: "root-id"})
     expect(result).toEqual({fileId: "file-id", at: new Date("2025-01-01T00:00:00.000Z"), by: 'jean-fei'})
   });
 
@@ -20,7 +20,7 @@ describe('FEATURE: Jean-Fei uploads a video', () => {
     const nowGateway = new FakeNowGateway(new Date("2025-01-01T00:00:00.000Z"))
     const authGateway = new FakeAuthGateway("jean-fei")
     const uploadFile = createUploadFileFn(createTestDependencies({fileUploadHandler: uploadHandler, nowGateway, authGateway}))
-    const result = await uploadFile({id: "video-id-0", type: "video", sourcePath: "/path/video.mp4", targetFolderId: "personal-id"})
+    const result = await uploadFile({ title: "awesome video", sourcePath: "/path/video.mp4", type: "video", targetFolderId: "personal-id"})
     expect(result).toEqual({fileId: "file-id", at: new Date("2025-01-01T00:00:00.000Z"), by: 'jean-fei'})
   });
 

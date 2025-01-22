@@ -24,7 +24,7 @@ export class SupabaseFileUploadHandler implements FileUploadHandler {
         }
         const { error: errorInsert } = await this.supabase
         .from('files')
-        .insert({  id: params.id, type: params.type, created_at: params.at.toISOString() })
+        .insert({  id: params.id, type: params.type, created_at: params.at.toISOString(), title: params.title })
         
         if (errorInsert) {
             throw new Error(errorInsert.message)

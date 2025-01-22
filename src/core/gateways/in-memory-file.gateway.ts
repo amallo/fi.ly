@@ -1,4 +1,4 @@
-import { StoredFile } from "core/models/stored-file.model";
+import { StoredFile } from "@/core/models/stored-file.model";
 import { FileStorageGateway } from "./file-storage.gateway";
 
 export class InMemoryFileGateway implements FileStorageGateway {

@@ -11,7 +11,6 @@ export default function NewVideoScreen() {
   const router = useRouter();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.info("Accepted files", acceptedFiles)
     if (acceptedFiles.length > 0) {
       setFile(acceptedFiles[0]);
     }
@@ -35,6 +34,7 @@ export default function NewVideoScreen() {
       await uploadFile({
         sourcePath: filePath,
         type: "video",
+        title: file.name,
         targetFolderId: "1"
       });
       router.push("/");
@@ -58,7 +58,25 @@ export default function NewVideoScreen() {
         {file ? (
           <div>
             <p className="text-gray-700">Fichier sélectionné:</p>
-            <p className="font-medium">{file.name}</p>
+            <div className="flex  justify-between">
+            <input
+                type="text" 
+                defaultValue={file.name}
+                className="text-blue-500 bg-blue-50 font-medium border rounded px-2 py-1 w-full mr-2"
+                onClick={(e) => e.stopPropagation()}
+              />
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setFile(null);
+                }}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
           </div>
         ) : (
           <div>
