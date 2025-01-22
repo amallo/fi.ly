@@ -1,5 +1,5 @@
-import { RecentVideosComponent } from "@/components/recent-videos.component";
+import { ListRecentVideosComponent } from "@/components/list-recent-videos.component";
 
 export default function MineVideosScreen() {
-    return <RecentVideosComponent />
+    return <ListRecentVideosComponent />
 }

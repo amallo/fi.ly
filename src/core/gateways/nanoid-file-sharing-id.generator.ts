@@ -1,6 +1,6 @@
-import { FileSharingIdGenerator } from "./file-sharing-id.generator";
+import { IdGenerator } from "./id.generator";
 import { nanoid } from "nanoid";
-export class NanoidFileSharingIdGenerator implements FileSharingIdGenerator {
+export class NanoidFileSharingIdGenerator implements IdGenerator {
     generate(): string {
         return nanoid()
     }

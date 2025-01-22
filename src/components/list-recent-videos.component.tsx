@@ -4,8 +4,9 @@ import { useCases } from "@/context/usecase.provider"
 import { StoredFile } from "@/core/models/stored-file.model"
 import Link from "next/link"
 import { useState, useEffect, useCallback } from "react"
+import { ButtonAddVideoComponent } from "./button-add-video"
 
-export const RecentVideosComponent = () => {
+export const ListRecentVideosComponent = () => {
     const { getLastVideos } = useCases()
     const [videos, setVideos] = useState<StoredFile[]>([])
     const [page, setPage] = useState(1)
@@ -29,25 +30,21 @@ export const RecentVideosComponent = () => {
         {videos.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-gray-500">Pas de vidéo</p>
-            <Link
-              href="/videos/new"
-              className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-            >
-              Ajouter une vidéo
-            </Link>
+            <ButtonAddVideoComponent label="Ajouter une vidéo" />
           </div>
         ) : (
           <>
             <ul className="divide-y divide-gray-200">
+              <ButtonAddVideoComponent label="Ajouter une vidéo" />
               {videos.map((video) => (
                 <li key={video.id} className="py-4">
                   <div className="flex items-center space-x-4">
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-gray-900">
-                        {"sdsds"}
+                        {"Nouvelle vidéo trop super"}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {video.createdAt.toLocaleDateString()}
+                        {video.createdAt.toISOString()}
                       </p>
                     </div>
                   </div>

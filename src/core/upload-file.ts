@@ -1,18 +1,16 @@
 import { Dependencies } from "./dependencies"
-import { AuthGateway } from "./gateways/auth.gateway"
-import { FileUploadHandler } from "./gateways/file-upload.handler"
-import { NowGateway } from "./gateways/now.gateway"
 import { UploadFile } from "./models/upload-file.model"
 
 export class UploadFileParams{
-  constructor(public readonly id: string, public readonly type: 'video', public readonly sourcePath: string, public readonly targetFolderId: string) {}
+  constructor(public readonly type: 'video', public readonly sourcePath: string, public readonly targetFolderId: string) {}
 }
-export function createUploadFileFn({fileUploadHandler, nowGateway, authGateway}: Dependencies) {
-  return async ({id, type, sourcePath, targetFolderId: folder}: UploadFileParams) => {
+export function createUploadFileFn({fileUploadHandler, nowGateway, authGateway, fileIdGenerator}: Dependencies) {
+  return async ({type, sourcePath, targetFolderId: folder}: UploadFileParams) => {
     const now = nowGateway.nowIs()
     const authenticatedUser = await authGateway.current()
+    const fileId = fileIdGenerator.generate()
     const uploadFile = new UploadFile(
-      id,
+      fileId,
       authenticatedUser, 
       type, 
       sourcePath, 
@@ -21,7 +19,7 @@ export function createUploadFileFn({fileUploadHandler, nowGateway, authGateway}:
     )
     return fileUploadHandler.upload(uploadFile)
     .then(() => 
-        ({at: now, by: authenticatedUser.name}))
+        ({at: now, by: authenticatedUser.name, fileId}))
   }
 }
 

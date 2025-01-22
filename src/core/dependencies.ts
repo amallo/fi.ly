@@ -2,7 +2,7 @@ import { AuthGateway } from "@/core/gateways/auth.gateway";
 import { ConfigGateway } from "@/core/gateways/config.gateway";
 import { EnvConfigGateway } from "@/core/gateways/env-config.gateway";
 import { FakeUploadHandler } from "@/core/gateways/fake-file-upload.handler";
-import { FileSharingIdGenerator } from "@/core/gateways/file-sharing-id.generator";
+import { IdGenerator } from "@/core/gateways/id.generator";
 import { FileSharingLinkGenerator } from "@/core/gateways/file-sharing-link.generator";
 import { FileSharingGateway } from "@/core/gateways/file-sharing.gateway";
 import { FileUploadHandler } from "@/core/gateways/file-upload.handler";
@@ -16,7 +16,7 @@ import { NanoidShareLinkGenerator } from "@/core/gateways/nanoid-share-link.gene
 import { NowGateway } from "@/core/gateways/now.gateway";
 import { RealNowGateway } from "@/core/gateways/real-now.gateway";
 import { AuthenticatedUser } from "@/core/models/authenticated-user.model";
-import { StubFileSharingIdGenerator } from "./gateways/stub-file-sharing-id.generator";
+import { FakeFileSharingIdGenerator } from "./gateways/fake-file-sharing-id.generator";
 import { StubFileSharingLinkGenerator } from "./gateways/stub-file-sharing-link.generator";
 import { FakeFileStorageGateway } from "./gateways/fake-file-storage.gateway";
 import { FakeNowGateway } from "./gateways/fake-now.gateway";
@@ -26,6 +26,8 @@ import { FakeFileSharingGateway } from "./gateways/fake-file-sharing.gateway";
 import { SupabaseFileStorageGateway } from "./gateways/supabase-file-storage.gateway";
 import { createBrowserClient } from "@supabase/ssr/dist/main/createBrowserClient";
 import { SupabaseFileUploadHandler } from "./gateways/supabase-file-upload.handler";
+import { FakeFileIdGenerator } from "./gateways/fake-file-id.generator";
+import { SupabaseFileIdGenerator } from "./gateways/supabase-file-id.generator";
 
 export type Dependencies = {
     nowGateway: NowGateway,
@@ -33,7 +35,8 @@ export type Dependencies = {
     fileSharingGateway: FileSharingGateway,
     shareLinkGenerator: FileSharingLinkGenerator,
     configGateway: ConfigGateway,
-    fileSharingIdGenerator: FileSharingIdGenerator,
+    fileSharingIdGenerator: IdGenerator,
+    fileIdGenerator: IdGenerator,
     fileUploadHandler: FileUploadHandler,
     folderGateway: FolderGateway,
     fileGateway: FileStorageGateway,
@@ -52,6 +55,7 @@ export const createDevDependencies = (): Dependencies => {
         fileSharingGateway : new InMemoryFileSharingGateway([]),
         configGateway : new EnvConfigGateway(),
         fileSharingIdGenerator : new NanoidFileSharingIdGenerator(),
+        fileIdGenerator : new SupabaseFileIdGenerator(),
         shareLinkGenerator : new NanoidShareLinkGenerator(),
         fileUploadHandler : new SupabaseFileUploadHandler(supabase, {bucketName: process.env.NEXT_PUBLIC_SUPABASE_BUCKET_NAME!}),
     }
@@ -65,9 +69,10 @@ export const createTestDependencies = (deps: Partial<Dependencies>): Dependencie
         authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei")),
         fileSharingGateway : new FakeFileSharingGateway([]),
         configGateway : new StubConfigGateway("http://app2b.io"),
-        fileSharingIdGenerator : new StubFileSharingIdGenerator("share-id"),
+        fileSharingIdGenerator : new FakeFileSharingIdGenerator("share-id"),
         shareLinkGenerator : new StubFileSharingLinkGenerator("test-link"),
         fileUploadHandler : new FakeUploadHandler(),
+        fileIdGenerator : new FakeFileIdGenerator("file-id"),
         ...deps,
     }
 }

@@ -12,7 +12,7 @@ describe('FEATURE: Jean-Fei uploads a video', () => {
     const authGateway = new FakeAuthGateway("jean-fei")
     const uploadFile = createUploadFileFn(createTestDependencies({fileUploadHandler: uploadHandler, nowGateway, authGateway}))
     const result = await uploadFile({id: "video-id-0", type: "video", sourcePath: "/path/video.mp4", targetFolderId: "root-id"})
-    expect(result).toEqual({at: new Date("2025-01-01T00:00:00.000Z"), by: 'jean-fei'})
+    expect(result).toEqual({fileId: "file-id", at: new Date("2025-01-01T00:00:00.000Z"), by: 'jean-fei'})
   });
 
   test("successfully upload a video to the personal folder", async () => {
@@ -21,7 +21,7 @@ describe('FEATURE: Jean-Fei uploads a video', () => {
     const authGateway = new FakeAuthGateway("jean-fei")
     const uploadFile = createUploadFileFn(createTestDependencies({fileUploadHandler: uploadHandler, nowGateway, authGateway}))
     const result = await uploadFile({id: "video-id-0", type: "video", sourcePath: "/path/video.mp4", targetFolderId: "personal-id"})
-    expect(result).toEqual({at: new Date("2025-01-01T00:00:00Z"), by: 'jean-fei'})
+    expect(result).toEqual({fileId: "file-id", at: new Date("2025-01-01T00:00:00.000Z"), by: 'jean-fei'})
   });
 
 });

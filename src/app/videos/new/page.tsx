@@ -11,6 +11,7 @@ export default function NewVideoScreen() {
   const router = useRouter();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
+    console.info("Accepted files", acceptedFiles)
     if (acceptedFiles.length > 0) {
       setFile(acceptedFiles[0]);
     }
@@ -33,7 +34,6 @@ export default function NewVideoScreen() {
       setIsUploading(true);
       await uploadFile({
         sourcePath: filePath,
-        id: "1",
         type: "video",
         targetFolderId: "1"
       });

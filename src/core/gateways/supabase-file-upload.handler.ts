@@ -15,12 +15,19 @@ export class SupabaseFileUploadHandler implements FileUploadHandler {
         const { error } = await this.supabase
             .storage
             .from(this.config.bucketName)
-            .upload(`privates/${params.type}/${params.id}.png`, buffer, {
+            .upload(`public/${params.type}/${params.id}`, buffer, {
                 cacheControl: '3600',
-                upsert: false
+                upsert: true
             })
         if (error) {
             throw new Error(error.message)
+        }
+        const { error: errorInsert } = await this.supabase
+        .from('files')
+        .insert({  id: params.id, type: params.type, created_at: params.at.toISOString() })
+        
+        if (errorInsert) {
+            throw new Error(errorInsert.message)
         }
     }
 }

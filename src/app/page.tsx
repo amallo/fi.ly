@@ -1,5 +1,5 @@
 "use client"
-import { RecentVideosComponent } from "@/components/recent-videos.component"
+import { ListRecentVideosComponent } from "@/components/list-recent-videos.component"
 import { useCases } from "@/context/usecase.provider"
 import { StoredFile } from "@/core/models/stored-file.model"
 
@@ -8,5 +8,5 @@ import { useState, useEffect, useCallback } from "react"
 
 
 export default function Home() {
-    return <RecentVideosComponent />
+    return <ListRecentVideosComponent />
   }

@@ -6,7 +6,7 @@ import { FakeFileSharingGateway } from "../gateways/fake-file-sharing.gateway";
 import { FileSharing } from "../models/file-sharing.model";
 import { StubFileSharingLinkGenerator } from "../gateways/stub-file-sharing-link.generator";
 import { StubConfigGateway } from "../gateways/stub-config.gateway";
-import { StubFileSharingIdGenerator } from "@/core/gateways/stub-file-sharing-id.generator";
+import { FakeFileSharingIdGenerator } from "@/core/gateways/fake-file-sharing-id.generator";
 import { createTestDependencies } from "@/core/dependencies";
 
 describe('FEATURE: Jean-Fei shares a video', () => {
@@ -17,7 +17,7 @@ describe('FEATURE: Jean-Fei shares a video', () => {
         const fileSharingGateway = new FakeFileSharingGateway([])
         const fileSharingLinkGenerator = new StubFileSharingLinkGenerator("this-is-a-link-to-share")
         const configGateway = new StubConfigGateway("http://app2b.io")
-        const sharedIdGenerator = new StubFileSharingIdGenerator("share-id")
+        const sharedIdGenerator = new FakeFileSharingIdGenerator("share-id")
         const shareFile = createShareFileFn(createTestDependencies({nowGateway, authGateway, fileSharingGateway, shareLinkGenerator: fileSharingLinkGenerator, configGateway, fileSharingIdGenerator: sharedIdGenerator}))
         const result = await shareFile({
             fileId: "file-tuto-0", 
