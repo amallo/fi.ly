@@ -1,26 +1,31 @@
 import { Dependencies } from "./dependencies"
 import { UploadFile } from "./models/upload-file.model"
 
-export class UploadFileParams{
-  constructor(public readonly title: string, public readonly type: 'video', public readonly sourcePath: string, public readonly targetFolderId: string) {}
+
+export type UploadFileParams = {
+  folderId?: string,
+  sourcePath: string,
+  title: string,
+  type: 'video'
 }
-export function createUploadFileFn({fileUploadHandler, nowGateway, authGateway, fileIdGenerator}: Dependencies) {
-  return async ({title, type, sourcePath, targetFolderId: folder}: UploadFileParams) => {
+export function createUploadFileFn({fileUploadHandler, nowGateway, authGateway, fileIdGenerator, configGateway}: Dependencies) {
+  return async ({title, type, sourcePath, folderId}: UploadFileParams) => {
     const now = nowGateway.nowIs()
     const authenticatedUser = await authGateway.current()
     const fileId = fileIdGenerator.generate()
+    const targetFolderId = folderId ?? configGateway.getDefaultFolderId()
     const uploadFile = new UploadFile(
       fileId,
       authenticatedUser, 
       type, 
       sourcePath, 
       now, 
-      folder,
+      targetFolderId,
       title
     )
     return fileUploadHandler.upload(uploadFile)
     .then(() => 
-        ({at: now, by: authenticatedUser.name, fileId}))
+        ({at: now, by: authenticatedUser.name, fileId, folderId: targetFolderId}))
   }
 }
 

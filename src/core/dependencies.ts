@@ -68,7 +68,7 @@ export const createTestDependencies = (deps: Partial<Dependencies>): Dependencie
         nowGateway : new FakeNowGateway(new Date("2025-01-21T00:00:00Z")),
         authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei")),
         fileSharingGateway : new FakeFileSharingGateway([]),
-        configGateway : new StubConfigGateway("http://app2b.io"),
+        configGateway : new StubConfigGateway("http://app2b.io", "root-id"),
         fileSharingIdGenerator : new FakeFileSharingIdGenerator("share-id"),
         shareLinkGenerator : new StubFileSharingLinkGenerator("test-link"),
         fileUploadHandler : new FakeUploadHandler(),
