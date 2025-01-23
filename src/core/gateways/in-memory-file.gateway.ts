@@ -1,5 +1,5 @@
 import { StoredFile } from "@/core/models/stored-file.model";
-import { FileStorageGateway } from "./file-storage.gateway";
+import { FileStorageGateway, UploadFileParams } from "./file-storage.gateway";
 
 export class InMemoryFileGateway implements FileStorageGateway {
     constructor(private files: StoredFile[]) {}

@@ -7,10 +7,14 @@ export class SupabaseFileStorageGateway implements FileStorageGateway {
     constructor(private supabase: SupabaseClient) {}
 
     async getLast(params: {count: number, page: number}): Promise<StoredFile[]> {
-       const {data, error} = await this.supabase
+        const rangeIndexFrom = (params.page - 1) * params.count
+        const rangeIndexTo = params.page * params.count
+        console.log("rangeIndexFrom", rangeIndexFrom, "rangeIndexTo", rangeIndexTo)
+        const {data, error} = await this.supabase
             .from("files")
             .select("*")
-            .range((params.page - 1) * params.count, params.page * params.count)
+            .range(rangeIndexFrom, rangeIndexTo)
+            .limit(params.count)
         if (error) {
             console.error(error)
             throw new Error("Error fetching last files")
@@ -35,7 +39,7 @@ export class SupabaseFileStorageGateway implements FileStorageGateway {
         }
         const { error: errorInsert } = await this.supabase
         .from('files')
-        .insert({  id: file.id, type: file.type, created_at: file.createdAt.toISOString(), title: params.file.name, folder_id: params.file.folderId })
+        .insert({  id: file.id, type: file.type, created_at: file.createdAt.toISOString(), name: params.file.name, folder_id: params.file.folderId })
         
         if (errorInsert) {
             throw new Error(errorInsert.message)
