@@ -40,7 +40,7 @@ export const ListRecentVideosComponent = () => {
                   <div className="flex items-center space-x-4">
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-gray-900">
-                        {video.title}
+                        {video.name}
                       </p>
                       <p className="text-sm text-gray-500">
                         {video.createdAt.toISOString()}

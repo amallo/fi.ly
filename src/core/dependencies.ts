@@ -5,7 +5,6 @@ import { FakeUploadHandler } from "@/core/gateways/fake-file-upload.handler";
 import { IdGenerator } from "@/core/gateways/id.generator";
 import { FileSharingLinkGenerator } from "@/core/gateways/file-sharing-link.generator";
 import { FileSharingGateway } from "@/core/gateways/file-sharing.gateway";
-import { FileUploadHandler } from "@/core/gateways/file-upload.handler";
 import { FileStorageGateway } from "@/core/gateways/file-storage.gateway";
 import { FolderGateway } from "@/core/gateways/folder.gateway";
 import { InMemoryFileSharingGateway } from "@/core/gateways/in-memory-file-sharing.gateway";
@@ -37,7 +36,6 @@ export type Dependencies = {
     configGateway: ConfigGateway,
     fileSharingIdGenerator: IdGenerator,
     fileIdGenerator: IdGenerator,
-    fileUploadHandler: FileUploadHandler,
     folderGateway: FolderGateway,
     fileGateway: FileStorageGateway,
 }
@@ -47,17 +45,18 @@ export const createDevDependencies = (): Dependencies => {
         process.env.NEXT_PUBLIC_SUPABASE_API_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
+    const configGateway = new EnvConfigGateway()
     return {
         folderGateway : new InMemoryFolderGateway([]),
-        fileGateway : new SupabaseFileStorageGateway(supabase),
+        fileGateway : new SupabaseFileStorageGateway(supabase, configGateway),
         nowGateway : new RealNowGateway(),
         authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei")),
         fileSharingGateway : new InMemoryFileSharingGateway([]),
-        configGateway : new EnvConfigGateway(),
+        configGateway,
         fileSharingIdGenerator : new NanoidFileSharingIdGenerator(),
         fileIdGenerator : new SupabaseFileIdGenerator(),
         shareLinkGenerator : new NanoidShareLinkGenerator(),
-        fileUploadHandler : new SupabaseFileUploadHandler(supabase, {bucketName: process.env.NEXT_PUBLIC_SUPABASE_BUCKET_NAME!}),
+
     }
 }
 
@@ -71,7 +70,6 @@ export const createTestDependencies = (deps: Partial<Dependencies>): Dependencie
         configGateway : new FakeConfigGateway("http://app2b.io", "root-id"),
         fileSharingIdGenerator : new FakeFileSharingIdGenerator("share-id"),
         shareLinkGenerator : new StubFileSharingLinkGenerator("test-link"),
-        fileUploadHandler : new FakeUploadHandler(),
         fileIdGenerator : new FakeFileIdGenerator("file-id"),
         ...deps,
     }
