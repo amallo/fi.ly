@@ -48,7 +48,7 @@ export const createDevDependencies = (): Dependencies => {
     const configGateway = new EnvConfigGateway()
     return {
         folderGateway : new InMemoryFolderGateway([]),
-        fileGateway : new SupabaseFileStorageGateway(supabase, configGateway),
+        fileGateway : new SupabaseFileStorageGateway(supabase),
         nowGateway : new RealNowGateway(),
         authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei")),
         fileSharingGateway : new InMemoryFileSharingGateway([]),

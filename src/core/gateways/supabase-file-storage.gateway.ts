@@ -1,11 +1,10 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { StoredFile } from "../models/stored-file.model";
 import { FileStorageGateway, UploadFileParams } from "./file-storage.gateway";
-import { EnvConfigGateway } from "./env-config.gateway";
 import { AuthenticatedUser } from "../models/authenticated-user.model";
 
 export class SupabaseFileStorageGateway implements FileStorageGateway {
-    constructor(private supabase: SupabaseClient, private config: EnvConfigGateway) {}
+    constructor(private supabase: SupabaseClient) {}
 
     async getLast(params: {count: number, page: number}): Promise<StoredFile[]> {
        const {data, error} = await this.supabase
