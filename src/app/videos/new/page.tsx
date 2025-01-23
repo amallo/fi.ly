@@ -34,8 +34,7 @@ export default function NewVideoScreen() {
       await uploadFile({
         sourcePath: filePath,
         type: "video",
-        title: file.name,
-        targetFolderId: "1"
+        name: file.name
       });
       router.push("/");
     } catch (error) {

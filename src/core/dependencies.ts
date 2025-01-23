@@ -21,7 +21,7 @@ import { StubFileSharingLinkGenerator } from "./gateways/stub-file-sharing-link.
 import { FakeFileStorageGateway } from "./gateways/fake-file-storage.gateway";
 import { FakeNowGateway } from "./gateways/fake-now.gateway";
 import { FakeFolderGateway } from "./gateways/fake-folder.gateway";
-import { StubConfigGateway } from "./gateways/stub-config.gateway";
+import { FakeConfigGateway } from "./gateways/fake-config.gateway";
 import { FakeFileSharingGateway } from "./gateways/fake-file-sharing.gateway";
 import { SupabaseFileStorageGateway } from "./gateways/supabase-file-storage.gateway";
 import { createBrowserClient } from "@supabase/ssr/dist/main/createBrowserClient";
@@ -68,7 +68,7 @@ export const createTestDependencies = (deps: Partial<Dependencies>): Dependencie
         nowGateway : new FakeNowGateway(new Date("2025-01-21T00:00:00Z")),
         authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei")),
         fileSharingGateway : new FakeFileSharingGateway([]),
-        configGateway : new StubConfigGateway("http://app2b.io", "root-id"),
+        configGateway : new FakeConfigGateway("http://app2b.io", "root-id"),
         fileSharingIdGenerator : new FakeFileSharingIdGenerator("share-id"),
         shareLinkGenerator : new StubFileSharingLinkGenerator("test-link"),
         fileUploadHandler : new FakeUploadHandler(),

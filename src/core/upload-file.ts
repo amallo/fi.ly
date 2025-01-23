@@ -5,11 +5,11 @@ import { UploadFile } from "./models/upload-file.model"
 export type UploadFileParams = {
   folderId?: string,
   sourcePath: string,
-  title: string,
+  name: string,
   type: 'video'
 }
 export function createUploadFileFn({fileUploadHandler, nowGateway, authGateway, fileIdGenerator, configGateway}: Dependencies) {
-  return async ({title, type, sourcePath, folderId}: UploadFileParams) => {
+  return async ({name, type, sourcePath, folderId}: UploadFileParams) => {
     const now = nowGateway.nowIs()
     const authenticatedUser = await authGateway.current()
     const fileId = fileIdGenerator.generate()
@@ -21,7 +21,7 @@ export function createUploadFileFn({fileUploadHandler, nowGateway, authGateway, 
       sourcePath, 
       now, 
       targetFolderId,
-      title
+      name
     )
     return fileUploadHandler.upload(uploadFile)
     .then(() => 

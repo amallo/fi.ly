@@ -5,7 +5,7 @@ import { FakeNowGateway } from "../gateways/fake-now.gateway";
 import { FakeFileSharingGateway } from "../gateways/fake-file-sharing.gateway";
 import { FileSharing } from "../models/file-sharing.model";
 import { StubFileSharingLinkGenerator } from "../gateways/stub-file-sharing-link.generator";
-import { StubConfigGateway } from "../gateways/stub-config.gateway";
+import { FakeConfigGateway } from "../gateways/fake-config.gateway";
 import { FakeFileSharingIdGenerator } from "@/core/gateways/fake-file-sharing-id.generator";
 import { createTestDependencies } from "@/core/dependencies";
 
@@ -16,7 +16,7 @@ describe('FEATURE: Jean-Fei shares a video', () => {
         const authGateway = new FakeAuthGateway("jean-fei")
         const fileSharingGateway = new FakeFileSharingGateway([])
         const fileSharingLinkGenerator = new StubFileSharingLinkGenerator("this-is-a-link-to-share")
-        const configGateway = new StubConfigGateway("http://app2b.io")
+        const configGateway = new FakeConfigGateway("http://app2b.io", "root-id")
         const sharedIdGenerator = new FakeFileSharingIdGenerator("share-id")
         const shareFile = createShareFileFn(createTestDependencies({nowGateway, authGateway, fileSharingGateway, shareLinkGenerator: fileSharingLinkGenerator, configGateway, fileSharingIdGenerator: sharedIdGenerator}))
         const result = await shareFile({
