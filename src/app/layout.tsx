@@ -29,12 +29,11 @@ export const metadata: Metadata = {
 const HomeLayout = ({children}: {children: React.ReactNode}) => {
   return (
       
-    
       <SidebarProvider>
         <AppSidebar />
-        <div className='flex-1'>
-        <HeaderSummarizeDashboard />
-        {children}
+        <div className='flex-1 flex bg-blue-100 flex-col'>
+          <HeaderSummarizeDashboard />
+          {children}
         </div>
       </SidebarProvider>
 );

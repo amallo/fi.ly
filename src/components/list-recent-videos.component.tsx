@@ -3,9 +3,11 @@
 import { useCases } from "@/context/usecase.provider"
 import { StoredFile } from "@/core/models/stored-file.model"
 import { useState, useEffect, useCallback } from "react"
-import { ButtonAddVideoComponent } from "./button-add-video"
 import { Button } from "./ui/button"
-import { Forward, Share, Trash } from "lucide-react"
+import { Forward, Trash } from "lucide-react"
+import { Card, CardContent, CardHeader } from "./ui/card"
+import { Separator } from "./ui/separator"
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
 
 
 const videoPerPage = 3
@@ -28,62 +30,84 @@ export const ListRecentVideosComponent = () => {
   
   
     return (
-      <div className="p-4">
-        {videos.length === 0 && page === 1 ? (
-          <div className="flex flex-col items-center justify-center gap-4">
-            <p className="text-gray-500">Pas de vidéo</p>
-          </div>
-        ) : (
-          <>
-            <ul className="divide-y divide-gray-200">
-              {videos.map((video) => (
-                <li key={video.id} className="py-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-gray-500">
-                        {video.name}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        {video.createdAt.toISOString()}
-                      </p>
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button variant="secondary">
-                        <Forward  />
-                      </Button>
-                      <Button variant="destructive">
+      <div className="flex flex-row justify-center px-32 py-16">
+        <Card className="flex flex-1 flex-col gap-2 space-y-2 mt-2">
+          {videos.length === 0 && page === 1 ? (
+            <CardHeader className="flex flex-col items-center justify-center gap-4">
+              <h1 className="text-gray-500 font-normal">Pas de vidéo</h1>
+            </CardHeader>
+          ) : (
+            <>
+            <CardHeader className="flex flex-row justify-center gap-4">
+              <h4 className="text-gray-500 font-bold">Mes Vidéos</h4>
+              
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableCaption>{`Vos dernières vidéos`}</TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[100px] font-bold">Vidéos</TableHead>
+                    <TableHead className="text-center font-bold">Partages</TableHead>
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {videos.map((video) => (
+                    <TableRow key={video.id}>
+                      <TableCell className="font-medium">
+                        <div className="min-w-0 flex-1 flex flex-col">
+                          <p className="truncate text-gray-500">
+                            {video.name}
+                          </p>
+                          <p className="text-sm text-gray-400">
+                            {video.createdAt.toISOString()}
+                          </p>
+                        </div>
+                      </TableCell>
+                      <TableCell className="flex flex-row justify-center items-center gap-2 text-right">
+                      <p className="text-gray-500">Aucun</p>
+                        <Button variant="outline">
+                          
+                          <Forward  />
+                        </Button>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button variant="destructive">
                           <Trash  />
-                      </Button>
-                      
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-  
-            <div className="mt-4 flex items-center justify-between">
-              <button
-                disabled={page === 1}
-                
-                className="rounded-md bg-gray-200 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
-                onClick={() => previousPage()}
-              >
-                Précédent
-              </button>
-              <span className="text-sm text-gray-500">
-                Page {page}
-              </span>
-              <button
-                className="rounded-md bg-gray-200 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
-                disabled={videos.length < videoPerPage}
-                
-                onClick={() => nextPage()}
-              >
-                Suivant
-              </button>
-            </div>
-          </>
-        )}
+                        </Button>
+                      </TableCell>
+                  </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              
+    
+              <div className="mt-4 flex items-center justify-between">
+                <button
+                  disabled={page === 1}
+                  
+                  className="rounded-md bg-gray-200 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
+                  onClick={() => previousPage()}
+                >
+                  Précédent
+                </button>
+                <span className="text-sm text-gray-500">
+                  Page {page}
+                </span>
+                <button
+                  className="rounded-md bg-gray-200 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300"
+                  disabled={videos.length < videoPerPage}
+                  
+                  onClick={() => nextPage()}
+                >
+                  Suivant
+                </button>
+              </div>
+            </CardContent>
+            </>
+          )}
+        </Card>
       </div>
     );
 }
