@@ -7,9 +7,11 @@ import { createChangePasswordFn } from "@/core/change-password";
 import { createGetLastVideosFn } from "@/core/get-last-videos";
 import { createShareFileFn } from "@/core/share-file";
 import { createUploadFileFn } from "@/core/upload-file";
+import { useDependencies } from "./depencies.provider";
 
 const UseCaseContext = createUseCaseContext()
-export const UseCasesProvider = ({children, dependencies}: {children: React.ReactNode, dependencies: Dependencies}) => {
+export const UseCasesProvider = ({children}: {children: React.ReactNode}) => {
+    const dependencies = useDependencies()
     return <UseCaseContext.Provider value={
         {
             appendFolder: createAppendFolderFn(dependencies),

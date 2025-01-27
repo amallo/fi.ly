@@ -50,7 +50,7 @@ export const createDevDependencies = (): Dependencies => {
         folderGateway : new InMemoryFolderGateway([]),
         fileGateway : new SupabaseFileStorageGateway(supabase),
         nowGateway : new RealNowGateway(),
-        authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei")),
+        authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei", "https://i.pravatar.cc/300")),
         fileSharingGateway : new InMemoryFileSharingGateway([]),
         configGateway,
         fileSharingIdGenerator : new NanoidFileSharingIdGenerator(),

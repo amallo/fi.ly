@@ -4,6 +4,8 @@ import { useCases } from "@/context/usecase.provider"
 import { StoredFile } from "@/core/models/stored-file.model"
 import { useState, useEffect, useCallback } from "react"
 import { ButtonAddVideoComponent } from "./button-add-video"
+import { Button } from "./ui/button"
+import { Forward, Share, Trash } from "lucide-react"
 
 
 const videoPerPage = 3
@@ -30,12 +32,10 @@ export const ListRecentVideosComponent = () => {
         {videos.length === 0 && page === 1 ? (
           <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-gray-500">Pas de vidéo</p>
-            <ButtonAddVideoComponent label="Ajouter une vidéo" />
           </div>
         ) : (
           <>
             <ul className="divide-y divide-gray-200">
-              <ButtonAddVideoComponent label="Ajouter une vidéo" />
               {videos.map((video) => (
                 <li key={video.id} className="py-4">
                   <div className="flex items-center space-x-4">
@@ -48,18 +48,13 @@ export const ListRecentVideosComponent = () => {
                       </p>
                     </div>
                     <div className="flex space-x-2">
-                      <button 
-                        className="rounded-md bg-blue-500 px-3 py-2 text-sm font-medium text-white hover:bg-blue-600"
-                        onClick={() => {}}
-                      >
-                        Partager
-                      </button>
-                      <button
-                        className="rounded-md bg-red-500 px-3 py-2 text-sm font-medium text-white hover:bg-red-600"
-                        onClick={() => {}}
-                      >
-                        Supprimer
-                      </button>
+                      <Button variant="secondary">
+                        <Forward  />
+                      </Button>
+                      <Button variant="destructive">
+                          <Trash  />
+                      </Button>
+                      
                     </div>
                   </div>
                 </li>

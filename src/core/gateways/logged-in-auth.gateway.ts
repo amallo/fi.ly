@@ -1,4 +1,4 @@
-import { AuthenticatedUser } from "core/models/authenticated-user.model";
+import { AuthenticatedUser } from "@/core/models/authenticated-user.model";
 import { AuthGateway } from "./auth.gateway";
 
 export class LoggedInAuthGateway implements AuthGateway {

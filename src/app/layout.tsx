@@ -6,6 +6,10 @@ import { Providers } from "@/context/index.provider";
 import Link from "next/link";
 import { BarChart2, Upload, Users, Video } from "lucide-react";
 import { currentUser } from "@/data/mockData";
+import { AppSidebar } from '@/components/app-sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { HeaderSummarizeDashboard } from '@/components/dashboard/header-summarize-dashboard';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,88 +29,14 @@ export const metadata: Metadata = {
 const HomeLayout = ({children}: {children: React.ReactNode}) => {
   return (
       
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              <Link href="/" className="flex items-center">
-                <Video className="h-8 w-8 text-blue-600" />
-                <span className="ml-2 text-xl font-bold text-gray-900">file.ly</span>
-              </Link>
-            </div>
-            <div className="flex items-center">
-              <img
-                className="h-8 w-8 rounded-full"
-                src={currentUser.avatar}
-                alt={currentUser.name}
-              />
-            </div>
-          </div>
+    
+      <SidebarProvider>
+        <AppSidebar />
+        <div className='flex-1'>
+        <HeaderSummarizeDashboard />
+        {children}
         </div>
-      </nav>
-
-      <div className="flex">
-        <aside className="w-64 bg-white border-r border-gray-200 min-h-screen">
-          <nav className="mt-5 px-2">
-            <Link
-              href="/videos/mine"
-              className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-900 hover:bg-gray-50"
-            >
-              <Video className="mr-3 h-5 w-5 text-gray-500" />
-              Mes videos
-            </Link>
-            <Link
-              href="/analytics"
-              className="mt-1 group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-900 hover:bg-gray-50"
-            >
-              <BarChart2 className="mr-3 h-5 w-5 text-gray-500" />
-              Tableau de bord
-            </Link>
-            <Link
-            
-              href="/shared"
-              className="mt-1 group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-900 hover:bg-gray-50"
-            >
-              <Users className="mr-3 h-5 w-5 text-gray-500" />
-              Partages en cours
-            </Link>
-            <Link
-              href="/videos/new"
-              className="mt-1 group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-900 hover:bg-gray-50 w-full"
-            >
-              <Upload className="mr-3 h-5 w-5 text-gray-500" />
-              Nouvelle video
-            </Link>
-          </nav>
-          <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-            <button className="flex-shrink-0 w-full group block">
-              <div className="flex items-center">
-                <div>
-                  <img
-                    className="inline-block h-9 w-9 rounded-full"
-                    src={currentUser.avatar}
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                    {currentUser.name}
-                  </p>
-                  <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                    Mon profile
-                  </p>
-                </div>
-              </div>
-            </button>
-          </div>
-        </aside>
-
-        <main className="flex-1 p-6">
-          {children}
-        </main>
-      </div>
-    </div>
+      </SidebarProvider>
 );
 }
 
