@@ -34,6 +34,7 @@ const HomeLayout = ({children}: {children: React.ReactNode}) => {
         <div className='flex-1 flex bg-blue-100 flex-col'>
           <HeaderSummarizeDashboard />
           {children}
+          
         </div>
       </SidebarProvider>
 );

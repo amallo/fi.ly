@@ -6,7 +6,6 @@ import { useState, useEffect, useCallback } from "react"
 import { Button } from "./ui/button"
 import { Forward, Trash } from "lucide-react"
 import { Card, CardContent, CardHeader } from "./ui/card"
-import { Separator } from "./ui/separator"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
 
 
@@ -30,7 +29,7 @@ export const ListRecentVideosComponent = () => {
   
   
     return (
-      <div className="flex flex-row justify-center px-32 py-16">
+      <div className="flex flex-row justify-center px-32 py-8">
         <Card className="flex flex-1 flex-col gap-2 space-y-2 mt-2">
           {videos.length === 0 && page === 1 ? (
             <CardHeader className="flex flex-col items-center justify-center gap-4">

@@ -3,7 +3,7 @@ import { ButtonAddVideoComponent } from "../button-add-video"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 
 export const HeaderSummarizeDashboard = ()=>{
-    return <div className="bg-blue-300 flex flex-row  px-32 py-16  gap-4">
+    return <div className="bg-blue-300 flex flex-row  px-32 py-8">
         <div className="flex flex-1 flex-row justify-between gap-4">
             <Card>
                 <CardHeader>
