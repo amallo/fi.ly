@@ -27,10 +27,10 @@ describe('FEATURE: Jean-Fei gets its videos', () => {
 
     test("Jean fei has 10 videos", async () => {
         const authGateway = new FakeAuthGateway("jean-fei")
-        const fileGateway = new FakeFileStorageGateway(Array.from({length: 10}, (_, i) => ({id: `video-${i}`, name: `video-${i}`, type: "video", by: new AuthenticatedUser("jean-fei"), createdAt: new Date("2025-01-21T08:19:30.556Z"), folderId: "root-id"})))
+        const fileGateway = new FakeFileStorageGateway(Array.from({length: 10}, (_, i) => ({id: `video-${i}`, name: `video-${i}`, type: "video", by: "jean-fei", createdAt: new Date("2025-01-21T08:19:30.556Z"), folderId: "root-id"})))
         const getLastVideos = createGetLastVideosFn(createTestDependencies({fileGateway, authGateway}))
         const result = await getLastVideos({count: 10, page: 1})
         expect(result).toEqual({ videos: Array.from({length: 10}, (_, i) => (
-            {id: `video-${i}`, name: `video-${i}`, type: "video", createdAt: new Date("2025-01-21T08:19:30.556Z"), by: new AuthenticatedUser("jean-fei"), folderId: "root-id"}))})
+            {id: `video-${i}`, name: `video-${i}`, type: "video", createdAt: new Date("2025-01-21T08:19:30.556Z"), by: "jean-fei", folderId: "root-id"}))})
     });
 });

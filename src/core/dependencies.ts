@@ -24,18 +24,16 @@ import { FakeConfigGateway } from "./gateways/fake-config.gateway";
 import { FakeFileSharingGateway } from "./gateways/fake-file-sharing.gateway";
 import { SupabaseFileStorageGateway } from "./gateways/supabase-file-storage.gateway";
 import { createBrowserClient } from "@supabase/ssr/dist/main/createBrowserClient";
-import { SupabaseFileUploadHandler } from "./gateways/supabase-file-upload.handler";
 import { FakeFileIdGenerator } from "./gateways/fake-file-id.generator";
-import { SupabaseFileIdGenerator } from "./gateways/supabase-file-id.generator";
+import { UUIdGenerator } from "./gateways/uuid.generator";
 
 export type Dependencies = {
     nowGateway: NowGateway,
     authGateway: AuthGateway,
     fileSharingGateway: FileSharingGateway,
-    shareLinkGenerator: FileSharingLinkGenerator,
     configGateway: ConfigGateway,
-    fileSharingIdGenerator: IdGenerator,
     fileIdGenerator: IdGenerator,
+    fileSharingIdGenerator: IdGenerator,
     folderGateway: FolderGateway,
     fileGateway: FileStorageGateway,
 }
@@ -54,8 +52,7 @@ export const createDevDependencies = (): Dependencies => {
         fileSharingGateway : new InMemoryFileSharingGateway([]),
         configGateway,
         fileSharingIdGenerator : new NanoidFileSharingIdGenerator(),
-        fileIdGenerator : new SupabaseFileIdGenerator(),
-        shareLinkGenerator : new NanoidShareLinkGenerator(),
+        fileIdGenerator : new UUIdGenerator(),
 
     }
 }
@@ -65,12 +62,11 @@ export const createTestDependencies = (deps: Partial<Dependencies>): Dependencie
         folderGateway : new FakeFolderGateway(),
         fileGateway : new FakeFileStorageGateway([]),
         nowGateway : new FakeNowGateway(new Date("2025-01-21T00:00:00Z")),
-        authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei")),
+        authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei", "https://i.pravatar.cc/300")),
         fileSharingGateway : new FakeFileSharingGateway([]),
         configGateway : new FakeConfigGateway("http://app2b.io", "root-id"),
-        fileSharingIdGenerator : new FakeFileSharingIdGenerator("share-id"),
-        shareLinkGenerator : new StubFileSharingLinkGenerator("test-link"),
         fileIdGenerator : new FakeFileIdGenerator("file-id"),
+        fileSharingIdGenerator : new FakeFileSharingIdGenerator("share-id"),
         ...deps,
     }
 }

@@ -6,8 +6,19 @@ export class FileSharing {
         public readonly by: string, 
         public readonly expiresAt: Date,
         public password: string,
-        public readonly link: URL) {}
+        public readonly link: FileSharingUrl) {}
     changePassword(newPassword: string) {
         this.password = newPassword
+    }
+}
+
+export class FileSharingUrl {
+    private readonly _url: URL
+    constructor(public readonly host: URL, private readonly shareId: string) {
+        this._url = new URL(this.host)
+        this._url.pathname = shareId
+    }
+    url() {
+        return this._url
     }
 }

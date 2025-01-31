@@ -9,7 +9,6 @@ export class SupabaseFileStorageGateway implements FileStorageGateway {
     async getLast(params: {count: number, page: number}): Promise<StoredFile[]> {
         const rangeIndexFrom = (params.page - 1) * params.count
         const rangeIndexTo = params.page * params.count
-        console.log("rangeIndexFrom", rangeIndexFrom, "rangeIndexTo", rangeIndexTo)
         const {data, error} = await this.supabase
             .from("files")
             .select("*")
