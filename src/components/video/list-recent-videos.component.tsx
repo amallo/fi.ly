@@ -3,10 +3,10 @@
 import { useCases } from "@/context/usecase.provider"
 import { StoredFile } from "@/core/models/stored-file.model"
 import { useState, useEffect, useCallback } from "react"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import { Forward, Trash } from "lucide-react"
-import { Card, CardContent, CardHeader } from "./ui/card"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
+import { Card, CardContent, CardHeader } from "../ui/card"
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table"
 
 
 const videoPerPage = 3

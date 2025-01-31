@@ -1,5 +1,5 @@
-import { ArrowUp, Plus, Share, Video } from "lucide-react"
-import { ButtonAddVideoComponent } from "../button-add-video"
+import { Plus, Share, Video } from "lucide-react"
+import { ButtonAddVideoComponent } from "../video/button-add-video"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 
 export const HeaderSummarizeDashboard = ()=>{

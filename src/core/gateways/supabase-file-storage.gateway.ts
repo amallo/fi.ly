@@ -1,7 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { StoredFile } from "../models/stored-file.model";
 import { FileStorageGateway, UploadFileParams } from "./file-storage.gateway";
-import { AuthenticatedUser } from "../models/authenticated-user.model";
 
 export class SupabaseFileStorageGateway implements FileStorageGateway {
     constructor(private supabase: SupabaseClient) {}
@@ -21,7 +20,7 @@ export class SupabaseFileStorageGateway implements FileStorageGateway {
         if (!data) {
             return []
         }
-        return Promise.resolve(data.map((file) => ({id: file.id, name: file.name, type: file.type, createdAt: new Date(file.created_at), by: new AuthenticatedUser(file.by), folderId: file.folder_id})))
+        return Promise.resolve(data.map((file) => ({id: file.id, name: file.name, type: file.type, createdAt: new Date(file.created_at), by: file.by, folderId: file.folder_id})))
     }
 
     async upload(params: UploadFileParams): Promise<void> {
