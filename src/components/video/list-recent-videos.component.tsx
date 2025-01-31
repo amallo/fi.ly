@@ -7,6 +7,7 @@ import { Button } from "../ui/button"
 import { Forward, Trash } from "lucide-react"
 import { Card, CardContent, CardHeader } from "../ui/card"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table"
+import { ButtonShareVideoComponent } from "./button-share-video"
 
 
 const videoPerPage = 3
@@ -65,11 +66,7 @@ export const ListRecentVideosComponent = () => {
                         </div>
                       </TableCell>
                       <TableCell className="flex flex-row justify-center items-center gap-2 text-right">
-                      <p className="text-gray-500">Aucun</p>
-                        <Button variant="outline">
-                          
-                          <Forward  />
-                        </Button>
+                        <ButtonShareVideoComponent  />
                       </TableCell>
                       <TableCell className="text-right">
                         <Button variant="destructive">

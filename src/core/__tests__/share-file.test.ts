@@ -16,7 +16,7 @@ describe('FEATURE: Jean-Fei shares a video', () => {
         const fileSharingGateway = new FakeFileSharingGateway([])
         const configGateway = new FakeConfigGateway("http://app2b.io", "root-id")
         const sharedIdGenerator = new FakeFileSharingIdGenerator("share-id")
-        const shareFile = createShareFileFn(createTestDependencies({nowGateway, authGateway, fileSharingGateway, configGateway, sharedIdGenerator: sharedIdGenerator}))
+        const shareFile = createShareFileFn(createTestDependencies({nowGateway, authGateway, fileSharingGateway, configGateway, fileSharingIdGenerator: sharedIdGenerator}))
         const result = await shareFile({
             fileId: "file-tuto-0", 
             shareWith: [{email: "julien@gmail.com", name: "julien"}], 

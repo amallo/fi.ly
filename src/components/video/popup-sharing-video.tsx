@@ -1,29 +1,22 @@
 import { useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
 import { Button } from "../ui/button"
-import { Forward } from "lucide-react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 
 type PopupSharingVideoComponentProps = {
     videoId: string
-    active: boolean
+    isOpened: boolean
+    onOpenChange: (isOpened: boolean) => void
 }
 
-export const PopupSharingVideoComponent = ({videoId, active}: PopupSharingVideoComponentProps) => {
-    const [open, setOpen] = useState(false)
+export const PopupSharingVideoComponent = ({videoId, isOpened, onOpenChange}: PopupSharingVideoComponentProps) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-                <Button variant="outline">
-                    <Forward className="mr-2 h-4 w-4" />
-                    Partager
-                </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+        <Dialog open={isOpened} onOpenChange={onOpenChange}>
+           <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Partager la vidéo</DialogTitle>
                     <DialogDescription>

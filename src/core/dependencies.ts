@@ -51,7 +51,7 @@ export const createDevDependencies = (): Dependencies => {
         authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei", "https://i.pravatar.cc/300")),
         fileSharingGateway : new InMemoryFileSharingGateway([]),
         configGateway,
-        fileSharingIdGenerator : new NanoidFileSharingIdGenerator(),
+        fileSharingIdGenerator : new UUIdGenerator(),
         fileIdGenerator : new UUIdGenerator(),
 
     }

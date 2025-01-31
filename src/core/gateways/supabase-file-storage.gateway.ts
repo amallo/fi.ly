@@ -36,8 +36,14 @@ export class SupabaseFileStorageGateway implements FileStorageGateway {
             throw new Error(error.message)
         }
         const { error: errorInsert } = await this.supabase
-        .from('files')
-        .insert({  id: file.id, type: file.type, created_at: file.createdAt.toISOString(), name: params.file.name, folder_id: params.file.folderId })
+            .from('files')
+            .insert({  
+                id: file.id, 
+                type: file.type, 
+                created_at: file.createdAt.toISOString(), 
+                name: params.file.name, 
+                folder_id: params.file.folderId 
+            })
         
         if (errorInsert) {
             throw new Error(errorInsert.message)
