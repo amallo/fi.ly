@@ -7,12 +7,13 @@ import { FileSharing, FileSharingUrl } from "../models/file-sharing.model";
 import { FakeConfigGateway } from "../gateways/fake-config.gateway";
 import { FakeFileSharingIdGenerator } from "@/core/gateways/fake-file-sharing-id.generator";
 import { createTestDependencies } from "@/core/dependencies";
+import { AuthenticatedUser } from "../models/authenticated-user.model";
 
 describe('FEATURE: Jean-Fei shares a video', () => {
 
     test('successfully share video tuto-0 to julien for 48hours', async () => {
         const nowGateway = new FakeNowGateway(new Date("2025-01-01T00:00:00.000Z"))
-        const authGateway = new FakeAuthGateway("jean-fei")
+        const authGateway = new FakeAuthGateway(new AuthenticatedUser("jean-fei-id", "jean-fei", "https://i.pravatar.cc/300"))
         const fileSharingGateway = new FakeFileSharingGateway([])
         const configGateway = new FakeConfigGateway("http://app2b.io", "root-id")
         const sharedIdGenerator = new FakeFileSharingIdGenerator("share-id")

@@ -4,13 +4,14 @@ import { FakeAuthGateway } from '../gateways/fake-auth.gateway';
 import { createAppendFolderFn } from '../append-folder';
 import { FakeFolderGateway } from '../gateways/fake-folder.gateway';
 import { createTestDependencies } from '@/core/dependencies';
+import { AuthenticatedUser } from '../models/authenticated-user.model';
 
 describe('FEATURE: Jean-Fei appends a folder', () => {
   
   test("successfully create a 'personal' folder on the root folder", async () => {
     const folderGateway = new FakeFolderGateway()
     const nowGateway = new FakeNowGateway(new Date("2025-01-01T00:00:00.000Z"))
-    const authGateway = new FakeAuthGateway("jean-fei")
+    const authGateway = new FakeAuthGateway(new AuthenticatedUser("jean-fei-id", "jean-fei", "https://i.pravatar.cc/300"))
     const appendFolder = createAppendFolderFn(createTestDependencies({folderGateway, nowGateway, authGateway}))
     const result = await appendFolder({parentId: 'root-id', name: "personal", folderId: 'personal-id'})
     expect(folderGateway.appendCalledWithArgs()).toEqual({params: {parentId: 'root-id', name: "personal", id: 'personal-id'}})

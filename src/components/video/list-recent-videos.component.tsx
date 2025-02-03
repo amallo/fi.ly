@@ -66,7 +66,7 @@ export const ListRecentVideosComponent = () => {
                         </div>
                       </TableCell>
                       <TableCell className="flex flex-row justify-center items-center gap-2 text-right">
-                        <ButtonShareVideoComponent  />
+                        <ButtonShareVideoComponent />
                       </TableCell>
                       <TableCell className="text-right">
                         <Button variant="destructive">

@@ -6,11 +6,12 @@ import { ChangeFileSharingPasswordArgs } from "../gateways/file-sharing.gateway"
 import { createChangePasswordFn } from "../change-password"
 import { FileSharing } from "../models/file-sharing.model"
 import { createTestDependencies } from "@/core/dependencies"
+import { AuthenticatedUser } from "../models/authenticated-user.model"
 
 describe('change file sharing password', () => {
     test('successfully change password', async () => {
         const nowGateway = new FakeNowGateway(new Date("2025-01-01T15:00:00.000Z"))
-        const authGateway = new FakeAuthGateway("jean-fei")
+        const authGateway = new FakeAuthGateway(new AuthenticatedUser("jean-fei-id", "jean-fei", "https://i.pravatar.cc/300"))
         const fileSharingGateway = new FakeFileSharingGateway([
             new FileSharing("share-id", "file-tuto-0", new Date("2025-01-01T15:00:00.000Z"), "jean-fei", new Date("2025-01-03T00:00:00.000Z"), "old-password", new URL("http://link"))
         ])

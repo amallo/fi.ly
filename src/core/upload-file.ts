@@ -21,7 +21,7 @@ export function createUploadFileFn({fileGateway, nowGateway, authGateway, fileId
       type, 
       now, 
       targetFolderId,
-      authenticatedUser
+      authenticatedUser.id
     )
     return fileGateway.upload({data: Buffer.from(sourcePath), file})
     .then(() => 

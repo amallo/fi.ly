@@ -10,18 +10,18 @@ import { AuthenticatedUser } from '../models/authenticated-user.model';
 describe('FEATURE: Jean-Fei uploads a video', () => {
   test('successfully upload a video to the root folder', async () => {
     const nowGateway = new FakeNowGateway(new Date("2025-01-01T00:00:00.000Z"))
-    const authGateway = new FakeAuthGateway("jean-fei")
+    const authGateway = new FakeAuthGateway(new AuthenticatedUser("jean-fei-id", "jean-fei", "https://i.pravatar.cc/300"))
     const fileStorageGateway = new FakeFileStorageGateway([])
     const configGateway = new FakeConfigGateway("https://example.com", "root-id")
     const uploadFile = createUploadFileFn(createTestDependencies({nowGateway, authGateway, configGateway, fileGateway: fileStorageGateway}))
     const result = await uploadFile({name: "awesome video", type: "video", sourcePath: "/path/video.mp4"})
     expect(result).toEqual({fileId: "file-id", folderId: "root-id", at: new Date("2025-01-01T00:00:00.000Z"), by: 'jean-fei'})
-    expect(fileStorageGateway.uploadWasCalledWith()).toEqual({data: Buffer.from("/path/video.mp4"), file: {name: "awesome video", type: "video", id: "file-id", folderId: "root-id", by: new AuthenticatedUser("jean-fei"), createdAt: new Date("2025-01-01T00:00:00.000Z")}})
+    expect(fileStorageGateway.uploadWasCalledWith()).toEqual({data: Buffer.from("/path/video.mp4"), file: {name: "awesome video", type: "video", id: "file-id", folderId: "root-id", by: "jean-fei-id", createdAt: new Date("2025-01-01T00:00:00.000Z")}})
   });
 
   test("successfully upload a video to the personal folder", async () => {
     const nowGateway = new FakeNowGateway(new Date("2025-01-01T00:00:00.000Z"))
-    const authGateway = new FakeAuthGateway("jean-fei")
+    const authGateway = new FakeAuthGateway(new AuthenticatedUser("jean-fei-id", "jean-fei", "https://i.pravatar.cc/300"))
     const fileStorageGateway = new FakeFileStorageGateway([])
     const configGateway = new FakeConfigGateway("https://example.com", "root-id")
     const uploadFile = createUploadFileFn(createTestDependencies({nowGateway, authGateway, configGateway, fileGateway: fileStorageGateway}))

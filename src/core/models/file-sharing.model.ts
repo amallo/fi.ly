@@ -14,7 +14,7 @@ export class FileSharing {
 
 export class FileSharingUrl {
     private readonly _url: URL
-    constructor(public readonly host: URL, private readonly shareId: string) {
+    constructor(public readonly host: URL, shareId: string) {
         this._url = new URL(this.host)
         this._url.pathname = shareId
     }
