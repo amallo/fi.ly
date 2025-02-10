@@ -13,7 +13,7 @@ describe('FEATURE: Jean-Fei shares a video', () => {
 
     test('successfully share video tuto-0 to julien for 48hours', async () => {
         const nowGateway = new FakeNowGateway(new Date("2025-01-01T00:00:00.000Z"))
-        const authGateway = new FakeAuthGateway(new AuthenticatedUser("jean-fei-id", "jean-fei", "https://i.pravatar.cc/300"))
+        const authGateway = new FakeAuthGateway(new AuthenticatedUser({id: "jean-fei-id", name: "jean-fei", avatar: "https://i.pravatar.cc/300"}))
         const fileSharingGateway = new FakeFileSharingGateway([])
         const configGateway = new FakeConfigGateway("http://app2b.io", "root-id")
         const sharedIdGenerator = new FakeFileSharingIdGenerator("share-id")
@@ -25,17 +25,16 @@ describe('FEATURE: Jean-Fei shares a video', () => {
             password: "dingue"
         })
 
-
         expect(fileSharingGateway.shareHAsBeenCalledWith()).toEqual(
-            new FileSharing(
-                "share-id", 
-                "file-tuto-0", 
-                new Date("2025-01-01T00:00:00.000Z"), 
-                "jean-fei", 
-                new Date("2025-01-03T00:00:00.000Z"), 
-                "dingue", 
-                new FileSharingUrl(new URL("http://app2b.io"), "share-id")
-                )
+            new FileSharing({
+                id: "share-id", 
+                fileId: "file-tuto-0", 
+                at: new Date("2025-01-01T00:00:00.000Z"), 
+                by: "jean-fei", 
+                expiresAt: new Date("2025-01-03T00:00:00.000Z"), 
+                password: "dingue", 
+                link:new FileSharingUrl(new URL("http://app2b.io"), "share-id")
+            })
         )
         expect(result).toEqual({at: new Date("2025-01-01T00:00:00.000Z"), by: 'jean-fei', expiresAt: new Date("2025-01-03T00:00:00.000Z"), link: "http://app2b.io/share-id" })
     })

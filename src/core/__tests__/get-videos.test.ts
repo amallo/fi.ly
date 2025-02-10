@@ -10,7 +10,7 @@ import { AuthenticatedUser } from "../models/authenticated-user.model";
 describe('FEATURE: Jean-Fei gets its videos', () => {
   
     test("Jean fei has no video ", async () => {
-      const authGateway = new FakeAuthGateway("jean-fei")
+      const authGateway = new FakeAuthGateway(new AuthenticatedUser({id: "jean-fei-id", name: "jean-fei", avatar: "https://i.pravatar.cc/300"}))
       const fileGateway = new FakeFileStorageGateway([])
       const getLastVideos = createGetLastVideosFn(createTestDependencies({fileGateway, authGateway}))
       const result = await getLastVideos({count: 10, page: 1})
@@ -26,7 +26,7 @@ describe('FEATURE: Jean-Fei gets its videos', () => {
     });
 
     test("Jean fei has 10 videos", async () => {
-        const authGateway = new FakeAuthGateway(new AuthenticatedUser("jean-fei-id", "jean-fei", "https://i.pravatar.cc/300"))
+        const authGateway = new FakeAuthGateway(new AuthenticatedUser({id: "jean-fei-id", name: "jean-fei", avatar: "https://i.pravatar.cc/300"}))
         const fileGateway = new FakeFileStorageGateway(Array.from({length: 10}, (_, i) => ({id: `video-${i}`, name: `video-${i}`, type: "video", by: "jean-fei", createdAt: new Date("2025-01-21T08:19:30.556Z"), folderId: "root-id"})))
         const getLastVideos = createGetLastVideosFn(createTestDependencies({fileGateway, authGateway}))
         const result = await getLastVideos({count: 10, page: 1})

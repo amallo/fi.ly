@@ -1,22 +1,17 @@
 import { AuthGateway } from "@/core/gateways/auth.gateway";
 import { ConfigGateway } from "@/core/gateways/config.gateway";
 import { EnvConfigGateway } from "@/core/gateways/env-config.gateway";
-import { FakeUploadHandler } from "@/core/gateways/fake-file-upload.handler";
 import { IdGenerator } from "@/core/gateways/id.generator";
-import { FileSharingLinkGenerator } from "@/core/gateways/file-sharing-link.generator";
 import { FileSharingGateway } from "@/core/gateways/file-sharing.gateway";
 import { FileStorageGateway } from "@/core/gateways/file-storage.gateway";
 import { FolderGateway } from "@/core/gateways/folder.gateway";
 import { InMemoryFileSharingGateway } from "@/core/gateways/in-memory-file-sharing.gateway";
 import { InMemoryFolderGateway } from "@/core/gateways/in-memory-folder.gateway";
 import { LoggedInAuthGateway } from "@/core/gateways/logged-in-auth.gateway";
-import { NanoidFileSharingIdGenerator } from "@/core/gateways/nanoid-file-sharing-id.generator";
-import { NanoidShareLinkGenerator } from "@/core/gateways/nanoid-share-link.generator";
 import { NowGateway } from "@/core/gateways/now.gateway";
 import { RealNowGateway } from "@/core/gateways/real-now.gateway";
 import { AuthenticatedUser } from "@/core/models/authenticated-user.model";
 import { FakeFileSharingIdGenerator } from "./gateways/fake-file-sharing-id.generator";
-import { StubFileSharingLinkGenerator } from "./gateways/stub-file-sharing-link.generator";
 import { FakeFileStorageGateway } from "./gateways/fake-file-storage.gateway";
 import { FakeNowGateway } from "./gateways/fake-now.gateway";
 import { FakeFolderGateway } from "./gateways/fake-folder.gateway";
@@ -48,7 +43,7 @@ export const createDevDependencies = (): Dependencies => {
         folderGateway : new InMemoryFolderGateway([]),
         fileGateway : new SupabaseFileStorageGateway(supabase),
         nowGateway : new RealNowGateway(),
-        authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei-id", "jean-fei", "https://i.pravatar.cc/300")),
+        authGateway : new LoggedInAuthGateway(new AuthenticatedUser({id: "jean-fei-id", name: "jean-fei", avatar: "https://i.pravatar.cc/300"})),
         fileSharingGateway : new InMemoryFileSharingGateway([]),
         configGateway,
         fileSharingIdGenerator : new UUIdGenerator(),
@@ -62,7 +57,7 @@ export const createTestDependencies = (deps: Partial<Dependencies>): Dependencie
         folderGateway : new FakeFolderGateway(),
         fileGateway : new FakeFileStorageGateway([]),
         nowGateway : new FakeNowGateway(new Date("2025-01-21T00:00:00Z")),
-        authGateway : new LoggedInAuthGateway(new AuthenticatedUser("jean-fei", "https://i.pravatar.cc/300")),
+        authGateway : new LoggedInAuthGateway(new AuthenticatedUser({id: "jean-fei-id", name: "jean-fei", avatar: "https://i.pravatar.cc/300"})),
         fileSharingGateway : new FakeFileSharingGateway([]),
         configGateway : new FakeConfigGateway("http://app2b.io", "root-id"),
         fileIdGenerator : new FakeFileIdGenerator("file-id"),

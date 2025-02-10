@@ -1,15 +1,15 @@
 export class Folder {
-  constructor(private readonly params: {parentId: string, name: string, id: string}) {}
+  constructor(private readonly props: {parentId: string, name: string, id: string}) {}
 
   get parentId() {
-    return this.params.parentId
+    return this.props.parentId
   }
 
   get name() {
-    return this.params.name
+    return this.props.name
   }
 
   get id() {
-    return this.params.id
+    return this.props.id
   }
 }

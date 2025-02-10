@@ -1,12 +1,20 @@
 export class FileSharing {
-    constructor(
-        public readonly id: string,
-        public readonly fileId: string,
-        public readonly at: Date, 
-        public readonly by: string, 
-        public readonly expiresAt: Date,
-        public password: string,
-        public readonly link: FileSharingUrl) {}
+    private readonly id: string
+    private readonly fileId: string
+    private readonly at: Date
+    private readonly by: string
+    private readonly expiresAt: Date
+    private password: string
+    private readonly link: FileSharingUrl
+    constructor(props : {id: string, fileId: string, at: Date, by: string, expiresAt: Date, password: string, link: FileSharingUrl}) {
+        this.id = props.id
+        this.fileId = props.fileId
+        this.at = props.at
+        this.by = props.by
+        this.expiresAt = props.expiresAt
+        this.password = props.password
+        this.link = props.link
+    }
     changePassword(newPassword: string) {
         this.password = newPassword
     }

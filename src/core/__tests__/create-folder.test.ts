@@ -11,10 +11,10 @@ describe('FEATURE: Jean-Fei appends a folder', () => {
   test("successfully create a 'personal' folder on the root folder", async () => {
     const folderGateway = new FakeFolderGateway()
     const nowGateway = new FakeNowGateway(new Date("2025-01-01T00:00:00.000Z"))
-    const authGateway = new FakeAuthGateway(new AuthenticatedUser("jean-fei-id", "jean-fei", "https://i.pravatar.cc/300"))
+    const authGateway = new FakeAuthGateway(new AuthenticatedUser({id: "jean-fei-id", name: "jean-fei", avatar: "https://i.pravatar.cc/300"}))
     const appendFolder = createAppendFolderFn(createTestDependencies({folderGateway, nowGateway, authGateway}))
     const result = await appendFolder({parentId: 'root-id', name: "personal", folderId: 'personal-id'})
-    expect(folderGateway.appendCalledWithArgs()).toEqual({params: {parentId: 'root-id', name: "personal", id: 'personal-id'}})
+    expect(folderGateway.appendCalledWithArgs()).toEqual({props: {parentId: 'root-id', name: "personal", id: 'personal-id'}})
     expect(result).toEqual({ at: new Date("2025-01-01T00:00:00Z"), by: 'jean-fei'})
   });
 });

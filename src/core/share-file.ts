@@ -8,14 +8,14 @@ export const createShareFileFn = ({nowGateway, authGateway, fileSharingGateway, 
         const expiresAt = new Date(now.getTime() + params.validForHours * 60 * 60 * 1000)
         const willBeSharedWithId = fileSharingIdGenerator.generate()
         const fileSharing = new FileSharingUrl(new URL(configGateway.getBaseHost()), willBeSharedWithId)
-        await fileSharingGateway.share(new FileSharing(
-            willBeSharedWithId, 
-            params.fileId, 
-            now, 
-            currentUser.name, 
+        await fileSharingGateway.share(new FileSharing({
+            id: willBeSharedWithId, 
+            fileId: params.fileId, 
+            at: now, 
+            by: currentUser.name, 
             expiresAt, 
-            params.password, 
-            fileSharing))
+            password: params.password, 
+            link: fileSharing}))
         return {at: now, by: currentUser.name, expiresAt: new Date(expiresAt), link: fileSharing.url().toString() }
     }
 }
