@@ -1,8 +1,9 @@
 import { IdGenerator } from "./id.generator";
 
 export class FakeFileSharingIdGenerator implements IdGenerator {
-    constructor(private id: string) {}
+    private counter = 0
+    constructor(private prefix: string) {}
     generate(): string {
-        return this.id
+        return `${this.prefix}-${this.counter++}`
     }
 }

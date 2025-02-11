@@ -2,15 +2,17 @@ import { FileSharing } from "../models/file-sharing.model";
 import { ChangeFileSharingPasswordArgs, FileSharingGateway } from "./file-sharing.gateway";
 
 export class FakeFileSharingGateway implements FileSharingGateway {
-    private shareArgs!: FileSharing
     private changePasswordArgs!: ChangeFileSharingPasswordArgs
-    constructor(private fileShares: FileSharing[]) {
+    constructor(private fileShares: FileSharing[] = []) {
     }
-    shareHAsBeenCalledWith() {
-       return this.shareArgs
+    allSharedFiles() {
+       return this.fileShares
     }
-    async share(share: FileSharing): Promise<void> {
-        this.shareArgs = share
+    willShare(shares: FileSharing[]): void {
+        this.fileShares.push(...shares)
+    }
+    async share(shares: FileSharing[]): Promise<void> {
+        this.fileShares.push(...shares)
     }
     changePassword(args: ChangeFileSharingPasswordArgs): Promise<void> {
         this.changePasswordArgs = args
@@ -25,5 +27,8 @@ export class FakeFileSharingGateway implements FileSharingGateway {
     }
     getById(id: string): Promise<FileSharing | null> {
         return Promise.resolve(this.fileShares.find(share => share.id === id) || null)
+    }
+    retrieveByFile(fileId: string): Promise<FileSharing[]> {
+        return Promise.resolve(this.fileShares.filter(share => share.fileId === fileId))
     }
 }

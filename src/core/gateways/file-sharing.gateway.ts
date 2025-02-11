@@ -7,7 +7,8 @@ export class ChangeFileSharingPasswordArgs {
 }
 
 export interface FileSharingGateway {
-    share(share: FileSharing): Promise<void>
+    share(share: FileSharing[]): Promise<void>
     changePassword(args: ChangeFileSharingPasswordArgs): Promise<void>
     getById(id: string): Promise<FileSharing | null>
+    retrieveByFile(fileId: string): Promise<FileSharing[]>
 }

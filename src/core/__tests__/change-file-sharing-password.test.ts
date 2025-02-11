@@ -13,7 +13,7 @@ describe('change file sharing password', () => {
         const nowGateway = new FakeNowGateway(new Date("2025-01-01T15:00:00.000Z"))
         const authGateway = new FakeAuthGateway(new AuthenticatedUser({id: "jean-fei-id", name: "jean-fei", avatar: "https://i.pravatar.cc/300"}))
         const fileSharingGateway = new FakeFileSharingGateway([
-            new FileSharing({id: "share-id", fileId: "file-tuto-0", at: new Date("2025-01-01T15:00:00.000Z"), by: "jean-fei", expiresAt: new Date("2025-01-03T00:00:00.000Z"), password: "old-password", link: new FileSharingUrl(new URL("http://link"), "share-id")})
+            new FileSharing({id: "share-id", fileId: "file-tuto-0", at: new Date("2025-01-01T15:00:00.000Z"), by: "jean-fei", expiresAt: new Date("2025-01-03T00:00:00.000Z"), password: "old-password", shareWith: {email: "julien@gmail.com"}})
         ])
         
         const shareFile = createChangePasswordFn(createTestDependencies({nowGateway, authGateway, fileSharingGateway}))

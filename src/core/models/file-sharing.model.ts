@@ -1,19 +1,20 @@
+type ShareWithOptions = {email: string}
 export class FileSharing {
-    private readonly id: string
-    private readonly fileId: string
-    private readonly at: Date
-    private readonly by: string
-    private readonly expiresAt: Date
+    public readonly id: string
+    public readonly fileId: string
+    public readonly at: Date
+    public readonly by: string
+    public readonly expiresAt: Date
     private password: string
-    private readonly link: FileSharingUrl
-    constructor(props : {id: string, fileId: string, at: Date, by: string, expiresAt: Date, password: string, link: FileSharingUrl}) {
+    public readonly shareWith: ShareWithOptions
+    constructor(props : {id: string, fileId: string, at: Date, by: string, expiresAt: Date, password: string, shareWith: ShareWithOptions}) {
         this.id = props.id
         this.fileId = props.fileId
         this.at = props.at
         this.by = props.by
         this.expiresAt = props.expiresAt
         this.password = props.password
-        this.link = props.link
+        this.shareWith = props.shareWith
     }
     changePassword(newPassword: string) {
         this.password = newPassword
@@ -21,12 +22,11 @@ export class FileSharing {
 }
 
 export class FileSharingUrl {
-    private readonly _url: URL
-    constructor(public readonly host: URL, shareId: string) {
-        this._url = new URL(this.host)
-        this._url.pathname = shareId
-    }
-    url() {
-        return this._url
+    constructor(private readonly baseHost: string, private readonly fileSharing: FileSharing) {}
+    toString() {
+        const url = new URL(this.baseHost)
+        url.pathname = this.fileSharing.id
+        url.username = this.fileSharing.shareWith.email
+        return url.toString()
     }
 }

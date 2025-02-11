@@ -1,22 +1,34 @@
-import { FileSharing, FileSharingUrl } from "./models/file-sharing.model"
+import { FileSharing } from "./models/file-sharing.model"
 import { Dependencies } from "./dependencies"
 
 export const createShareFileFn = ({nowGateway, authGateway, fileSharingGateway, configGateway, fileSharingIdGenerator} : Dependencies) => {
-    return async (params: {fileId: string, shareWith: {email: string, name: string}[], validForHours: number, password: string}) => {
+    return async (params: {fileId: string, shareWith: {email: string}[], validForHours: number, password: string}) => {
         const now = nowGateway.nowIs()
         const currentUser = await authGateway.current()
         const expiresAt = new Date(now.getTime() + params.validForHours * 60 * 60 * 1000)
-        const willBeSharedWithId = fileSharingIdGenerator.generate()
-        const fileSharing = new FileSharingUrl(new URL(configGateway.getBaseHost()), willBeSharedWithId)
-        await fileSharingGateway.share(new FileSharing({
-            id: willBeSharedWithId, 
-            fileId: params.fileId, 
-            at: now, 
-            by: currentUser.name, 
-            expiresAt, 
-            password: params.password, 
-            link: fileSharing}))
-        return {at: now, by: currentUser.name, expiresAt: new Date(expiresAt), link: fileSharing.url().toString() }
+
+        const shares = params.shareWith.map((shareWith)=>{
+            const willBeSharedWithId = fileSharingIdGenerator.generate()
+            const fileSharing = new FileSharing({
+                id: willBeSharedWithId, 
+                fileId: params.fileId, 
+                at: now, 
+                by: currentUser.id, 
+                expiresAt, 
+                password: params.password, 
+                shareWith: {email: shareWith.email}})
+            return fileSharing
+        })
+        
+        await fileSharingGateway.share(shares)
+        return {
+            fileSharing: shares.map((share)=>{
+                const fileSharingUrl = new URL(configGateway.getBaseHost())
+                fileSharingUrl.pathname = share.id
+                fileSharingUrl.username = share.shareWith.email
+                return {url: fileSharingUrl.toString()}
+            })
+        }
     }
 }
 
