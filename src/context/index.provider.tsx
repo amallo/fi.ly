@@ -1,11 +1,11 @@
 "use client"
-import { createDevDependencies } from "@/core/client-dependencies"
+import { createClientDependencies } from "@/core/client-dependencies"
 import { UseCasesProvider } from "./usecase.provider"
 import { DepenciesProvider } from "./depencies.provider"
 
 export const Providers = ({children}: {children: React.ReactNode}) => {
     return (
-    <DepenciesProvider dependencies={createDevDependencies()}>
+    <DepenciesProvider dependencies={createClientDependencies({})}>
         <UseCasesProvider>
             {children}
         </UseCasesProvider>
