@@ -1,5 +1,5 @@
 "use client"
-import { createDevDependencies } from "@/core/dependencies"
+import { createDevDependencies } from "@/core/client-dependencies"
 import { UseCasesProvider } from "./usecase.provider"
 import { DepenciesProvider } from "./depencies.provider"
 

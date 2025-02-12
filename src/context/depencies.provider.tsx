@@ -1,10 +1,10 @@
 "use client"
 import { useContext } from "react";
-import { Dependencies } from "@/core/dependencies";
+import { ClientDependencies } from "@/core/client-dependencies";
 import { createDepenciesContext } from "./dependencies.context";
 
 const DependenciesContext = createDepenciesContext()
-export const DepenciesProvider = ({children, dependencies}: {children: React.ReactNode, dependencies: Dependencies}) => {
+export const DepenciesProvider = ({children, dependencies}: {children: React.ReactNode, dependencies: ClientDependencies}) => {
     return <DependenciesContext.Provider value={dependencies}>{children}</DependenciesContext.Provider>
 }
 

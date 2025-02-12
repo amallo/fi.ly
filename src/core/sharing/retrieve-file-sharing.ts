@@ -1,7 +1,7 @@
 import {  FileSharingUrl } from "./models/file-sharing.model"
-import { Dependencies } from "../dependencies"
+import { ClientDependencies } from "../client-dependencies"
 
-export const createRetrieveFileSharingFn = ({authGateway, fileSharingGateway, configGateway} : Dependencies) => {
+export const createRetrieveFileSharingFn = ({authGateway, fileSharingGateway, configGateway} : ClientDependencies) => {
     return async (params: {fileId: string}) => {
         await authGateway.current()
         const shares = await fileSharingGateway.retrieveByFile(params.fileId)

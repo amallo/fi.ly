@@ -5,7 +5,7 @@ import { FakeNowGateway } from "@/core/common/gateways/fake-now.gateway"
 import { ChangeFileSharingPasswordArgs } from "../../sharing/gateways/file-sharing.gateway"
 import { createChangePasswordFn } from "../change-password"
 import { FileSharing } from "../../sharing/models/file-sharing.model"
-import { createTestDependencies } from "@/core/dependencies"
+import { createClientDependencies } from "@/core/client-dependencies"
 import { AuthenticatedUser } from "../../auth/models/authenticated-user.model"
 
 describe('change file sharing password', () => {
@@ -16,7 +16,7 @@ describe('change file sharing password', () => {
             new FileSharing({id: "share-id", fileId: "file-tuto-0", at: new Date("2025-01-01T15:00:00.000Z"), by: "jean-fei", expiresAt: new Date("2025-01-03T00:00:00.000Z"), password: "old-password", shareWith: {email: "julien@gmail.com"}})
         ])
         
-        const shareFile = createChangePasswordFn(createTestDependencies({nowGateway, authGateway, fileSharingGateway}))
+        const shareFile = createChangePasswordFn(createClientDependencies({nowGateway, authGateway, fileSharingGateway}))
         const result = await shareFile({
             id: 'share-id', 
             fileId: "file-tuto-0",

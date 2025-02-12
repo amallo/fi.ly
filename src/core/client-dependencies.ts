@@ -22,7 +22,7 @@ import { createBrowserClient } from "@supabase/ssr/dist/main/createBrowserClient
 import { FakeFileIdGenerator } from "@/core/file/gateways/fake-file-id.generator";
 import { UUIdGenerator } from "./common/gateways/uuid.generator";
 
-export type Dependencies = {
+export type ClientDependencies = {
     nowGateway: NowGateway,
     authGateway: AuthGateway,
     fileSharingGateway: FileSharingGateway,
@@ -33,7 +33,19 @@ export type Dependencies = {
     fileGateway: FileStorageGateway,
 }
 
-export const createDevDependencies = (): Dependencies => {
+
+
+export const createClientDependencies = (deps: Partial<ClientDependencies>): ClientDependencies => {
+    if(process.env.NODE_ENV === "test"){
+        return createTestDependencies(deps)
+    }
+    if(process.env.NODE_ENV === "development"){
+        return createDevDependencies()
+    }
+    return createDevDependencies()
+}
+
+const createDevDependencies = (): ClientDependencies => {
     const supabase = createBrowserClient(
         process.env.NEXT_PUBLIC_SUPABASE_API_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -52,7 +64,7 @@ export const createDevDependencies = (): Dependencies => {
     }
 }
 
-export const createTestDependencies = (deps: Partial<Dependencies>): Dependencies => {
+const createTestDependencies = (deps: Partial<ClientDependencies>): ClientDependencies => {
     return {
         folderGateway : new FakeFolderGateway(),
         fileGateway : new FakeFileStorageGateway([]),

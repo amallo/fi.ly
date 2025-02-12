@@ -1,6 +1,6 @@
-import { Dependencies } from "../dependencies"
+import { ClientDependencies } from "../client-dependencies"
 
-export const createGetLastVideosFn = ({fileGateway, authGateway} : Dependencies) => {
+export const createGetLastVideosFn = ({fileGateway, authGateway} : ClientDependencies) => {
     return async (params: {count: number, page: number}) => {
         await authGateway.current()
         const files = await fileGateway.getLast(params)

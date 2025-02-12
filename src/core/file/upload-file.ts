@@ -1,4 +1,4 @@
-import { Dependencies } from "../dependencies"
+import { ClientDependencies } from "../client-dependencies"
 import { StoredFile } from "@/core/file/models/stored-file.model"
 
 
@@ -8,7 +8,7 @@ export type UploadFileParams = {
   name: string,
   type: 'video'
 }
-export function createUploadFileFn({fileGateway, nowGateway, authGateway, fileIdGenerator, configGateway}: Dependencies) {
+export function createUploadFileFn({fileGateway, nowGateway, authGateway, fileIdGenerator, configGateway}: ClientDependencies) {
   return async ({name, type, sourcePath, folderId}: UploadFileParams) => {
     const now = nowGateway.nowIs()
     const authenticatedUser = await authGateway.current()

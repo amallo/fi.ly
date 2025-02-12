@@ -1,14 +1,14 @@
 import { describe, expect, test } from "vitest";
-import { createShareFileFn } from "../sharing/share-file";
+import { createShareFileFn } from "../share-file";
 import { FakeAuthGateway } from "@/core/auth/gateways/fake-auth.gateway";
 import { FakeNowGateway } from "@/core/common/gateways/fake-now.gateway";
-import { FakeFileSharingGateway } from "../sharing/gateways/fake-file-sharing.gateway";
-import { FileSharing } from "../sharing/models/file-sharing.model";
+import { FakeFileSharingGateway } from "../gateways/fake-file-sharing.gateway";
+import { FileSharing } from "../models/file-sharing.model";
 import { FakeConfigGateway } from "@/core/config/gateways/fake-config.gateway";
 import { FakeFileSharingIdGenerator } from "@/core/sharing/gateways/fake-file-sharing-id.generator";
-import { createTestDependencies } from "@/core/dependencies";
-import { AuthenticatedUser } from "../auth/models/authenticated-user.model";
-import { createRetrieveFileSharingFn } from "../sharing/retrieve-file-sharing";
+import { createClientDependencies } from "@/core/client-dependencies";
+import { AuthenticatedUser } from "@/core/auth/models/authenticated-user.model";
+import { createRetrieveFileSharingFn } from "../retrieve-file-sharing";
 
 describe('FEATURE: Jean-Fei shares a video', () => {
 
@@ -18,7 +18,7 @@ describe('FEATURE: Jean-Fei shares a video', () => {
         const fileSharingGateway = new FakeFileSharingGateway([])
         const configGateway = new FakeConfigGateway("http://app2b.io", "root-id")
         const sharedIdGenerator = new FakeFileSharingIdGenerator("share-id")
-        const shareFile = createShareFileFn(createTestDependencies({
+        const shareFile = createShareFileFn(createClientDependencies({
             nowGateway, authGateway, fileSharingGateway, configGateway, fileSharingIdGenerator: sharedIdGenerator}))
         const result = await shareFile({
             fileId: "file-tuto-0", 
@@ -79,7 +79,7 @@ describe('FEATURE: Jean-Fei shares a video', () => {
             })]
         )
         const configGateway = new FakeConfigGateway("http://app2b.io", "root-id")
-        const retrieveFileSharings = createRetrieveFileSharingFn(createTestDependencies({authGateway, fileSharingGateway, configGateway}))
+        const retrieveFileSharings = createRetrieveFileSharingFn(createClientDependencies({authGateway, fileSharingGateway, configGateway}))
         const result = await retrieveFileSharings({
             fileId: "file-tuto-0",
         })
