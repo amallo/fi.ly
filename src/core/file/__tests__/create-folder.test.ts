@@ -1,10 +1,10 @@
 import { describe, test, expect } from 'vitest';
-import { FakeNowGateway } from '../gateways/fake-now.gateway';
-import { FakeAuthGateway } from '../gateways/fake-auth.gateway';
+import { FakeNowGateway } from '@/core/common/gateways/fake-now.gateway';
+import { FakeAuthGateway } from '@/core/auth/gateways/fake-auth.gateway';
 import { createAppendFolderFn } from '../append-folder';
-import { FakeFolderGateway } from '../gateways/fake-folder.gateway';
+import { FakeFolderGateway } from '@/core/file/gateways/fake-folder.gateway';
 import { createTestDependencies } from '@/core/dependencies';
-import { AuthenticatedUser } from '../models/authenticated-user.model';
+import { AuthenticatedUser } from '../../auth/models/authenticated-user.model';
 
 describe('FEATURE: Jean-Fei appends a folder', () => {
   

@@ -1,5 +1,5 @@
 import { FileSharing } from "./models/file-sharing.model"
-import { Dependencies } from "./dependencies"
+import { Dependencies } from "../dependencies"
 
 export const createShareFileFn = ({nowGateway, authGateway, fileSharingGateway, configGateway, fileSharingIdGenerator} : Dependencies) => {
     return async (params: {fileId: string, shareWith: {email: string}[], validForHours: number, password: string}) => {

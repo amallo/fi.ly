@@ -1,5 +1,5 @@
-import { Dependencies } from "./dependencies"
-import { ChangeFileSharingPasswordArgs } from "./gateways/file-sharing.gateway"
+import { Dependencies } from "@/core/dependencies"
+import { ChangeFileSharingPasswordArgs } from "@/core/sharing/gateways/file-sharing.gateway"
 
 export const createChangePasswordFn = ({nowGateway, authGateway, fileSharingGateway} : Dependencies) => {
     return async (params: {id: string, fileId: string, newPassword: string}) => {

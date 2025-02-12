@@ -1,11 +1,11 @@
 import { describe, test, expect } from 'vitest';
 import { createUploadFileFn } from '../upload-file';
-import { FakeNowGateway } from '../gateways/fake-now.gateway';
-import { FakeAuthGateway } from '../gateways/fake-auth.gateway';
+import { FakeNowGateway } from '@/core/common/gateways/fake-now.gateway';
+import { FakeAuthGateway } from '@/core/auth/gateways/fake-auth.gateway';
 import { createTestDependencies } from '@/core/dependencies';
-import { FakeConfigGateway } from '../gateways/fake-config.gateway';
+import { FakeConfigGateway } from '@/core/config/gateways/fake-config.gateway';
 import { FakeFileStorageGateway } from '../gateways/fake-file-storage.gateway';
-import { AuthenticatedUser } from '../models/authenticated-user.model';
+import { AuthenticatedUser } from '../../auth/models/authenticated-user.model';
 
 describe('FEATURE: Jean-Fei uploads a video', () => {
   test('successfully upload a video to the root folder', async () => {

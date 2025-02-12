@@ -29,7 +29,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { AuthenticatedUser } from "@/core/models/authenticated-user.model"
+import { AuthenticatedUser } from "@/core/auth/models/authenticated-user.model"
 
 export function NavUser({
   user,

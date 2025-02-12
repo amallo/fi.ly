@@ -1,5 +1,5 @@
 import { useCases } from "@/context/usecase.provider"
-import { StoredFile } from "@/core/models/stored-file.model"
+import { StoredFile } from "@/core/file/models/stored-file.model"
 import { useState } from "react"
 
 export const useListVideosViewModel = () => {

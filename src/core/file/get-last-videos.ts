@@ -1,4 +1,4 @@
-import { Dependencies } from "./dependencies"
+import { Dependencies } from "../dependencies"
 
 export const createGetLastVideosFn = ({fileGateway, authGateway} : Dependencies) => {
     return async (params: {count: number, page: number}) => {

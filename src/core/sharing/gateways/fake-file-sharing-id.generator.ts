@@ -1,4 +1,4 @@
-import { IdGenerator } from "./id.generator";
+import { IdGenerator } from "../../common/gateways/id.generator";
 
 export class FakeFileSharingIdGenerator implements IdGenerator {
     private counter = 0

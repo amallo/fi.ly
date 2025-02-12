@@ -1,12 +1,12 @@
 import { describe, test, expect } from "vitest"
-import { FakeAuthGateway } from "../gateways/fake-auth.gateway"
-import { FakeFileSharingGateway } from "../gateways/fake-file-sharing.gateway"
-import { FakeNowGateway } from "../gateways/fake-now.gateway"
-import { ChangeFileSharingPasswordArgs } from "../gateways/file-sharing.gateway"
+import { FakeAuthGateway } from "@/core/auth/gateways/fake-auth.gateway"
+import { FakeFileSharingGateway } from "../../sharing/gateways/fake-file-sharing.gateway"
+import { FakeNowGateway } from "@/core/common/gateways/fake-now.gateway"
+import { ChangeFileSharingPasswordArgs } from "../../sharing/gateways/file-sharing.gateway"
 import { createChangePasswordFn } from "../change-password"
-import { FileSharing, FileSharingUrl } from "../models/file-sharing.model"
+import { FileSharing } from "../../sharing/models/file-sharing.model"
 import { createTestDependencies } from "@/core/dependencies"
-import { AuthenticatedUser } from "../models/authenticated-user.model"
+import { AuthenticatedUser } from "../../auth/models/authenticated-user.model"
 
 describe('change file sharing password', () => {
     test('successfully change password', async () => {

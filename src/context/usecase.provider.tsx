@@ -1,13 +1,12 @@
 "use client"
 import { useContext } from "react";
-import { createUseCaseContext, Usecases } from "./usecase.context";
-import { Dependencies } from "@/core/dependencies";
-import { createAppendFolderFn } from "@/core/append-folder";
-import { createChangePasswordFn } from "@/core/change-password";
-import { createGetLastVideosFn } from "@/core/get-last-videos";
-import { createShareFileFn } from "@/core/share-file";
-import { createUploadFileFn } from "@/core/upload-file";
-import { useDependencies } from "./depencies.provider";
+import { createUseCaseContext } from "@/context/usecase.context";
+import { createAppendFolderFn } from "@/core/file/append-folder";
+import { createChangePasswordFn } from "@/core/file/change-password";
+import { createGetLastVideosFn } from "@/core/file/get-last-videos";
+import { createShareFileFn } from "@/core/sharing/share-file";
+import { createUploadFileFn } from "@/core/file/upload-file";
+import { useDependencies } from "@/context/depencies.provider";
 
 const UseCaseContext = createUseCaseContext()
 export const UseCasesProvider = ({children}: {children: React.ReactNode}) => {

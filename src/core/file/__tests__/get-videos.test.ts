@@ -1,11 +1,11 @@
 import { createTestDependencies } from "@/core/dependencies";
-import { NotLoggedInError } from "@/core/gateways/auth.gateway";
-import { FakeAuthGateway } from "@/core/gateways/fake-auth.gateway";
-import { FakeFileStorageGateway } from "@/core/gateways/fake-file-storage.gateway";
-import { NotLoggedInAuthGateway } from "@/core/gateways/not-logged-in.gateway";
-import { createGetLastVideosFn } from "@/core/get-last-videos";
+import { NotLoggedInError } from "@/core/auth/gateways/auth.gateway";
+import { FakeAuthGateway } from "@/core/auth/gateways/fake-auth.gateway";
+import { FakeFileStorageGateway } from "@/core/file/gateways/fake-file-storage.gateway";
+import { NotLoggedInAuthGateway } from "@/core/auth/gateways/not-logged-in.gateway";
+import { createGetLastVideosFn } from "@/core/file/get-last-videos";
 import { describe, expect, test } from "vitest";
-import { AuthenticatedUser } from "../models/authenticated-user.model";
+import { AuthenticatedUser } from "../../auth/models/authenticated-user.model";
 
 describe('FEATURE: Jean-Fei gets its videos', () => {
   

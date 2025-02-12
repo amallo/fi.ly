@@ -1,7 +1,7 @@
 import { AppendFolderFn } from "@/core/append-folder";
 import { ChangePasswordFn } from "@/core/change-password";
 import { GetLastVideosFn } from "@/core/get-last-videos";
-import { ShareFileFn } from "@/core/share-file";
+import { ShareFileFn } from "@/core/sharing/share-file";
 import { UploadFileFn } from "@/core/upload-file";
 import React from "react";
 

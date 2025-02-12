@@ -1,14 +1,14 @@
 import { describe, expect, test } from "vitest";
-import { createShareFileFn } from "../share-file";
-import { FakeAuthGateway } from "../gateways/fake-auth.gateway";
-import { FakeNowGateway } from "../gateways/fake-now.gateway";
-import { FakeFileSharingGateway } from "../gateways/fake-file-sharing.gateway";
-import { FileSharing } from "../models/file-sharing.model";
-import { FakeConfigGateway } from "../gateways/fake-config.gateway";
-import { FakeFileSharingIdGenerator } from "@/core/gateways/fake-file-sharing-id.generator";
+import { createShareFileFn } from "../sharing/share-file";
+import { FakeAuthGateway } from "@/core/auth/gateways/fake-auth.gateway";
+import { FakeNowGateway } from "@/core/common/gateways/fake-now.gateway";
+import { FakeFileSharingGateway } from "../sharing/gateways/fake-file-sharing.gateway";
+import { FileSharing } from "../sharing/models/file-sharing.model";
+import { FakeConfigGateway } from "@/core/config/gateways/fake-config.gateway";
+import { FakeFileSharingIdGenerator } from "@/core/sharing/gateways/fake-file-sharing-id.generator";
 import { createTestDependencies } from "@/core/dependencies";
-import { AuthenticatedUser } from "../models/authenticated-user.model";
-import { createRetrieveFileSharingFn } from "../retrieve-file-sharing";
+import { AuthenticatedUser } from "../auth/models/authenticated-user.model";
+import { createRetrieveFileSharingFn } from "../sharing/retrieve-file-sharing";
 
 describe('FEATURE: Jean-Fei shares a video', () => {
 

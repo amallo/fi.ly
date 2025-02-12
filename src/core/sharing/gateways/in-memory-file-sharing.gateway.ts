@@ -1,11 +1,11 @@
-import { FileSharing } from "core/models/file-sharing.model";
+import { FileSharing } from "@/core/sharing/models/file-sharing.model";
 import { ChangeFileSharingPasswordArgs, FileSharingGateway } from "./file-sharing.gateway";
 
 export class InMemoryFileSharingGateway implements FileSharingGateway {
     constructor(private fileSharing: FileSharing[]) {}
 
-    share(fileSharing: FileSharing): Promise<void> {
-        this.fileSharing.push(fileSharing)
+    share(fileSharing: FileSharing[]): Promise<void> {
+        this.fileSharing.push(...fileSharing)
         return Promise.resolve()
     }
 
@@ -20,5 +20,9 @@ export class InMemoryFileSharingGateway implements FileSharingGateway {
 
     getById(id: string): Promise<FileSharing | null> {
         return Promise.resolve(this.fileSharing.find(fileSharing => fileSharing.id === id) ?? null)
+    }
+
+    retrieveByFile(fileId: string): Promise<FileSharing[]> {
+        return Promise.resolve(this.fileSharing.filter(fileSharing => fileSharing.fileId === fileId))
     }
 }

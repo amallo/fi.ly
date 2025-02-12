@@ -1,5 +1,5 @@
 import { useDependencies } from "@/context/depencies.provider"
-import { AuthenticatedUser } from "@/core/models/authenticated-user.model"
+import { AuthenticatedUser } from "@/core/auth/models/authenticated-user.model"
 import { useEffect, useState } from "react"
 
 export const useAuth = () => {

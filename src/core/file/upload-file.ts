@@ -1,6 +1,5 @@
-import { Dependencies } from "./dependencies"
-import { StoredFile } from "./models/stored-file.model"
-import { UploadFile } from "./models/upload-file.model"
+import { Dependencies } from "../dependencies"
+import { StoredFile } from "@/core/file/models/stored-file.model"
 
 
 export type UploadFileParams = {

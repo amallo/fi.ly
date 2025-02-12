@@ -1,5 +1,5 @@
-import { Folder } from "./models/folder.model"
-import { Dependencies } from "./dependencies"
+import { Folder } from "@/core/file/models/folder.model"
+import { Dependencies } from "@/core/dependencies"
 
 export const createAppendFolderFn = ({folderGateway, nowGateway, authGateway} : Dependencies) => {
   return async (folder: {parentId: string, name: string, folderId: string}) => {
